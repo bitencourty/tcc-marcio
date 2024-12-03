@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomap</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'roomap/homeadmin.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script>
+        function filterRooms() {
+            const searchText = document.querySelector('.search-bar').value.toLowerCase(); // Texto de pesquisa
+            const rooms = document.querySelectorAll('.room-card'); // Todas as salas
+            const noResultsMessage = document.querySelector('.no-results'); // Mensagem de "Nenhuma sala encontrada"
+            let anyRoomVisible = false; // Flag para verificar se alguma sala está visível
+
+            rooms.forEach(room => {
+                const roomName = room.querySelector('h3').textContent.toLowerCase(); // Nome da sala
+                const isSearchMatch = roomName.includes(searchText); // Verifica se o nome coincide com a pesquisa
+
+                if (isSearchMatch) {
+                    room.style.display = 'flex'; // Mostra o card com o layout flex
+                    anyRoomVisible = true; // Define como visível
+                } else {
+                    room.style.display = 'none'; // Esconde o card
+                }
+            });
+
+            // Exibe ou oculta a mensagem de "Nenhuma sala encontrada"
+            if (!anyRoomVisible) {
+                noResultsMessage.style.display = 'block'; // Mostra a mensagem
+            } else {
+                noResultsMessage.style.display = 'none'; // Oculta a mensagem
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                filterRooms(); // Chama a função ao pressionar Enter
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <a href="{% url 'inicio' %}">
+            <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'homeadmin' %}">Home</a></li>
+                <li><a href="{% url 'inventarioadmin' %}">Inventário</a></li>
+                <li><a href="{% url 'listafuncionarios' %}">Funcionários</a></li>
+                <li><a href="{% url 'salas' %}">Salas</a></li>
+                <li><a href="{% url 'agendadmin' %}">Agenda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="tabela">
+            <div id="infoTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reserva do Dia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reservas %}
+                            <tr>
+                                <td>{{ reserva.nome_sala }}</td>
+                                <td>{{ reserva.data_hora_inicio|date:"H:i" }}</td>
+                                <td>{{ reserva.data_hora_fim|date:"H:i" }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% if not reservas %}
+                            <tr>
+                                <td colspan="3">Nenhuma reserva disponível.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h1>Bem-vindo ao seu portal de <span class="highlight">reservas.</span><br> O espaço perfeito aguarda <span class="highlight">por você!</span></h1>
+        <p class="description">Aqui, sua sala ideal está a apenas um mapa de distância.</p>
+
+        <button class="btn-mapa">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <a class="front text" href="{% url 'mapa' %}">Visualizar Mapa Geral</a>
+        </button>
+
+        <button id="btn-agenda">Agenda Diária</button>
+    </main>
+
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <div class="carousel-items">
+                <div><img src="{% static 'roomap/images/fotohome.jpg' %}" alt="foto1" class="item1"></div>
+                <div><img src="{% static 'roomap/images/foto2home.png' %}" alt="foto2" class="item2"></div>
+                <div><img src="{% static 'roomap/images/foto3home.jpg' %}" alt="foto3" class="item3"></div>
+                <div><img src="{% static 'roomap/images/foto4home.jpg' %}" alt="foto4" class="item4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Pesquisar por sala" class="search-bar" onkeypress="handleKeyPress(event)">
+    </div>
+
+    <div class="search-container-block">
+        <select class="block-selector" onchange="filterRoomsByBlock()">
+            <option value="all">Todos os Blocos</option>
+            <option value="Bloco A">Bloco A</option>
+            <option value="Bloco B">Bloco B</option>
+            <option value="Bloco C">Bloco C</option>
+        </select>
+    </div>
+
+
+    <div class="no-results" style="display: none;">
+        <img src="{% static 'roomap/images/image-removebg-preview.png' %}" alt="Não encontrado" class="no-results-icon">
+        <h2>Ops! Nenhuma sala encontrada</h2>
+        <p>Não encontramos nenhum item que corresponda à sua busca. Tente usar palavras diferentes ou revise o termo digitado.</p>
+    </div>
+
+    <div class="room-container">
+        {% if salas %}
+            {% for sala in salas %}
+                <div class="room-card" data-block="{{ sala.loc_sala }}">
+                    <img src="{% static 'roomap/images/imagemdemo.jpg' %}" alt="{{ sala.nome_sala }}">
+                    <div class="room-info">
+                        <h3>{{ sala.nome_sala }}</h3>
+                        <p>Localização: {{ sala.loc_sala }}</p>
+                        <p>Status: {{ sala.status_sala }}</p>
+                        <a href="{% url 'reservasala' %}?sala_id={{ sala.id_sala }}">Reservar</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Não há salas disponíveis.</p>
+        {% endif %}
+    </div>
+
+    <dialog id="modal">
+        <div class="wrapper">
+            <button onclick="modal.close()">Fechar</button>
+        </div>
+        <h2>Agenda Diária</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Local</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.id_sala }}</td>
+                        <td>{{ reserva.data_hora_inicio|time }}</td>
+                        <td>{{ reserva.data_hora_fim|time }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">Nenhuma reserva para hoje.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </dialog>
+
+
+    <script>
+        // Script do carousel
+        const carouselWrapper = document.querySelector(".carousel-wrapper");
+        let i = 0;
+
+        setInterval(() => {
+            carouselWrapper.style.transform = `translateX(-${i * 25}%)`;
+            i = (i + 1) % 4;
+        }, 5000);
+
+        function filterRoomsByBlock() {
+            const selectedBlock = document.querySelector('.block-selector').value; // Obtém o bloco selecionado
+            const rooms = document.querySelectorAll('.room-card'); // Seleciona todos os cards de sala
+
+            rooms.forEach(room => {
+                const roomBlock = room.dataset.block; // Obtém o valor do atributo data-block de cada sala
+
+                // Mostra ou esconde as salas com base no bloco selecionado
+                if (selectedBlock === 'all' || roomBlock === selectedBlock) {
+                    room.style.display = 'flex'; // Mostra a sala
+                } else {
+                    room.style.display = 'none'; // Esconde a sala
+                }
+            });
+        }
+    </script>
+</body>
+</html>

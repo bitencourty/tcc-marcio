@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Editar Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'roomap/editarperfil.css' %}">
+</head>
+<body>
+    <header>
+        <a href="{% url 'inicio' %}">
+            <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'homedocente' %}">Home</a></li>
+                <li><a href="{% url 'inventariodocente' %}">Inventário</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                <li><a href="{% url 'agenda' %}">Agenda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Botão Voltar -->
+        <button onclick="history.back()" class="learn-more">
+            <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Voltar</span>
+        </button>
+
+        <br><br>
+
+        <!-- Contêiner do Perfil -->
+        <div class="profile-container">
+            <!-- Imagem do Perfil -->
+            <div class="image-container">
+                <div class="icon-container">
+                    <label for="upload-photo">
+                        <img src="{% static 'roomap/images/addfileperfil.png' %}" alt="Ícone de upload" class="upload-icon">
+                    </label>
+                    <input type="file" id="upload-photo" style="display: none;" onchange="loadFile(event)">
+                </div>
+
+                <img id="profile-img" src="{% static 'roomap/images/imagemperfil.png' %}" alt="Imagem de perfil" class="profile-img">
+                <br><br>
+                <div class="elementers">
+                    <!-- Exibição dos Dados do Docente -->
+                    {% if docente %}
+                        <p><strong>Nome: </strong>{{ docente.nome_doc }}</p><br>
+                        <p><strong>Email: </strong>{{ docente.email_doc }}</p><br>
+                        <p><strong>Cargo: </strong>{{ docente.cargo_doc }}</p>
+                    {% else %}
+                        <p>Nome não disponível</p>
+                        <p>Email não disponível</p>
+                        <p>Cargo não disponível</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Formulário para Atualização -->
+            <div class="form-container">
+                <h2>Editar Dados</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="text" name="nome" value="{{ docente.nome_doc }}" placeholder="Nome" required>
+                    <input type="email" name="email" value="{{ docente.email_doc }}" placeholder="Email" required>
+                    <input type="text" name="cargo" value="{{ docente.cargo_doc }}" placeholder="Cargo" required>
+                    <input type="password" name="senha" value="{{ docente.senha_doc }}" placeholder="Senha" required>
+                    <button type="submit" id="savebutton">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Atualiza a imagem do perfil ao selecionar um arquivo
+        var loadFile = function(event) {
+            var image = document.getElementById('profile-img');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        // Exibe uma mensagem de sucesso ao salvar
+        document.getElementById("savebutton").addEventListener("click", function() {
+            alert("Alteração realizada com sucesso.");
+        });
+    </script>
+</body>
+</html>

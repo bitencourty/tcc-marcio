@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário de Máquinas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'roomap/inventarioadmin.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="{% url 'inicio' %}">
+            <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'homeadmin' %}">Home</a></li>
+                <li><a href="{% url 'inventarioadmin' %}">Inventário</a></li>
+                <li><a href="{% url 'listafuncionarios' %}">Funcionários</a></li>
+                <li><a href="{% url 'salas' %}">Salas</a></li>
+                <li><a href="{% url 'agendadmin' %}">Agenda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="title-container">
+        <h1>Inventário de Máquinas</h1>
+    </div>
+
+    <button onclick="history.back()" class="learn-more">
+        <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+        </span>
+        <span class="button-text">Voltar</span>
+    </button>
+
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Pesquisar por Máquina" class="search-bar">
+    </div>
+
+    <div class="no-results" style="display: none;">
+        <img src="{% static 'roomap/images/image-removebg-preview.png' %}" alt="Não encontrado" class="no-results-icon">
+        <h2>Ops! Nenhum equipamento encontrado</h2>
+        <p>Não encontramos nenhum item que corresponda à sua busca. Tente usar palavras diferentes ou revise o termo digitado.</p>
+    </div>
+
+    <div class="add-button-container">
+        <a href="{% url 'addmaquina' %}" class="add-button">+</a>
+    </div>
+
+     <div class="room-container">
+        {% for equipamento in equipamentos %}
+            <div class="room-card">
+                <img src="{% static 'roomap/images/fresadora.jpg' %}" alt="{{ equipamento.nome_equip }}" class="room-image">
+                <div class="room-info">
+                    <h2>{{ equipamento.nome_equip }}</h2>
+                    <hr id="linha">
+                    <p><span class="categorie-info">Setor:</span> {{ equipamento.loc_equip }}</p>
+                    <p><span class="categorie-info">Quantidade Disponível:</span> {{ equipamento.quant_equip }}</p>
+                    <p><span class="categorie-info">Descrição:</span>  {{ equipamento.desc_equip }}</p>
+                     <a class=excluirbtn href="{% url 'delete_maquina' equipamento.id_equip %}">Excluir</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+    // Função para filtrar os cards com base no texto da pesquisa
+    document.querySelector('.search-bar').addEventListener('input', function() {
+        const searchValue = this.value.toLowerCase(); // Texto da barra de pesquisa
+        const roomCards = document.querySelectorAll('.room-card'); // Seleciona todos os cards
+        let found = false; // Flag para verificar se encontrou algum card
+
+        roomCards.forEach(card => {
+            const equipmentName = card.querySelector('h2').textContent.toLowerCase(); // Nome do equipamento no card
+            if (equipmentName.includes(searchValue)) {
+                card.style.display = 'flex'; // Mostra o card se houver correspondência (corrigido para flex)
+                found = true; // Define como encontrado
+            } else {
+                card.style.display = 'none'; // Esconde o card se não houver correspondência
+            }
+        });
+
+        // Exibe ou oculta a mensagem de "Equipamento não encontrado"
+        const noResultsMessage = document.querySelector('.no-results');
+        if (!found) {
+            noResultsMessage.style.display = 'block'; // Mostra a mensagem
+        } else {
+            noResultsMessage.style.display = 'none'; // Oculta a mensagem
+        }
+    });
+</script>
+
+
+</body>
+</html>

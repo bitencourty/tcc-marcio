@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 0.2vw;
+    width: 100%;
+}
+
+.logo {
+    width: 15vw;
+    margin-left: 3vw;
+}
+
+nav {
+    transform: translate(15%, 10%);
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 9vw;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2vw;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.title-container {
+    margin-top: 2%;
+    margin: 3rem 9.8rem;
+    padding-top: 0.5%;
+    margin-bottom:-3.5%;
+    font-size: 1.1vw;
+}
+
+.room-container {
+    width: 70%;
+    margin-left: 26vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-height: 2000px;
+    padding: 30px 0;
+}
+
+.room-card {
+    width: 157vh;
+    min-height: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #000;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    gap: 20px;
+}
+
+.room-image {
+    width: 320px;
+    height: 330px;
+    border-radius: 10px 0 0 10px;
+    object-fit: cover;
+}
+
+.room-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: left;
+    margin-top: 6vh;
+}
+
+.categorie-info {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+
+#linha {
+    width: 99.9%; /* Linha ocupa 100% do espaço disponível no conteúdo */
+}
+
+.room-info a {
+    padding: 0rem;
+    margin-left: 36vw;
+    width: 25%;
+    height: 6.5vh;
+    background-color: #ec1c24;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2vw;
+    display: inline-block; /* Permite definir dimensões no <a> */
+    text-align: center; /* Centraliza o conteúdo */
+    text-decoration: none; /* Remove o sublinhado do link */
+    line-height: 6.5vh; /* Alinha o texto verticalmente */
+    transform: translate(-27%, -60%);
+}
+
+.room-info a:hover {
+    background-color: #ff6666; /* Muda a cor do fundo ao passar o mouse */
+}
+
+/* Garante que o <a> tenha o comportamento de um botão */
+.room-info a:active {
+    transform: translate(-27%, -60%) scale(0.98); /* Efeito de clique */
+}
+
+#linha {
+    width: 99.9%; /* Linha ocupa 100% do espaço disponível no conteúdo */
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button.learn-more {
+    width: 12rem;
+    height: auto;
+    margin-left: 12.2vw;
+    margin-bottom:-10vh;
+    margin-top:6vh;
+    transform: translate(-0%, 2%);
+}
+
+button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #000000;
+    border-radius: 1.625rem;
+    margin-top: 5vh;
+}
+
+button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: auto;
+    right: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    left: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-left: 0.125rem solid #fff;
+    transform: rotate(-45deg);
+}
+
+button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 1vw;
+    left: 0;
+    right: 3.2vw;
+    bottom: 0;
+    padding: 0.71rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #282936;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 3vh;
+    font-size: 1.26vw;
+}
+
+button:hover .circle {
+    width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(-1rem, 0); /* Ajusta o deslocamento para a esquerda */
+}
+
+button:hover .button-text {
+    color: #fff;
+    margin-top: 3vh;
+    font-size: 1.26vw;
+}
+
+.search-container {
+    position: relative;
+    width: 40%; /* Ajuste conforme necessário */
+    margin: 1rem auto;
+    transform: translate(44%, -15%);
+}
+
+.search-bar {
+    padding: 0.8rem;
+    width: 100%;
+    height:auto;
+    font-size: 1.3vw;
+    color: gray;
+    border-color: #000;
+    border-radius: 1.5rem;
+    padding-left: 3vw; /* Ajuste o padding para dar espaço ao ícone */
+}
+
+.search-container i {
+    position: absolute;
+    left: 1vw; /* Ajuste conforme necessário */
+    top: 3.8vh;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+.add-button-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    transform: translate(-290%, -701%);
+}
+
+.add-button {
+    width: 50px;
+    height: 50px;
+    background-color: #ec1c24;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o conteúdo do botão */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease; /* Adiciona uma transição suave */
+    position: fixed; /* Mantém a posição fixa */
+    bottom: 2rem; /* Distância do fundo */
+    right: 2rem; /* Distância da direita */
+    text-decoration: none;
+}
+
+.add-button:hover {
+    background-color: #ff6666;
+}
+
+.no-results {
+    text-align: center;
+    margin: 20px 0; /* Espaçamento no topo e na base */
+    color: #555; /* Cor do texto */
+    font-family: 'Montserrat', sans-serif; /* Mesma fonte usada no resto do layout */
+    padding: 30px; /* Espaçamento interno */
+    border: 2px dashed #ccc; /* Borda estilizada */
+    border-radius: 10px; /* Bordas arredondadas */
+    background-color: #f9f9f9; /* Fundo claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+.no-results-icon {
+    width: 150px; /* Tamanho do ícone */
+    height: 150px;
+    margin-bottom: 15px; /* Espaço entre o ícone e o título */
+    opacity: 0.8; /* Transparência leve para suavizar */
+}
+
+.no-results h2 {
+    font-size: 1.8rem; /* Tamanho grande para o título */
+    color: #333; /* Cor mais escura */
+    margin-bottom: 10px; /* Espaçamento abaixo do título */
+}
+
+.no-results p {
+    font-size: 1rem; /* Tamanho do texto explicativo */
+    color: #666; /* Texto em cinza médio */
+    line-height: 1.6; /* Linha mais espaçada para leitura */
+}

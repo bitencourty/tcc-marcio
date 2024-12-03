@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: black;
+    transform: scale(0.64); /* Reduz a proporção para 80% */
+    transform-origin: LEFT; /* Garante que o ponto de origem seja o canto superior esquerdo */
+    overflow: hidden;
+}
+.mapa {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin-left: -130px;
+    margin-top: 30px;
+}
+
+.sala {
+    position: absolute;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auditorio {
+    top: 200px;
+    left: 300px;
+    width: 300px;
+    height: 150px;
+    background-color: rgb(238, 144, 144);
+    border: 1px solid black;
+}
+
+.oficina_eletrica {
+    top: 425px;
+    left: 600px;
+    width: 150px;
+    height: 255px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.t1 {
+    top: 450px;
+    left: 760px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.t2 {
+    top: 555px;
+    left: 760px;
+    width: 100px;
+    height: 125px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.lab_redes {
+    top: 595px;
+    left: 859px;
+    width: 80px;
+    height: 85px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.lab_cad {
+    top: 450px;
+    left: 900px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.lab_mec {
+    top: 450px;
+    left: 1000px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.solda {
+    top: 450px;
+    left: 1100px;
+    width: 80px;
+    height: 135px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.oficna_usinagem {
+    top: 450px;
+    left: 1180px;
+    width: 350px;
+    height: 230px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.oficina_automobilistica {
+    top: 450px;
+    left: 1520px;
+    width: 350px;
+    height: 230px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.lab_cam {
+    top: 313px;
+    left: 1000px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.lab_pnh{
+    top: 313px;
+    left: 1100px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.t3 {
+    top: 313px;
+    left: 1200px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.t4 {
+    top: 313px;
+    left: 1300px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.lab_clp {
+    top: 313px;
+    left: 1480px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.lab_eletronica {
+    top: 313px;
+    left: 1580px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.maq_comand {
+    top: 313px;
+    left: 1680px;
+    width: 100px;
+    height: 115px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.biblioteca {
+    top: 158px;
+    left: 1680px;
+    width: 100px;
+    height: 135px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.sala_aula1 {
+    top: 158px;
+    left: 1805px;
+    width: 100px;
+    height: 100px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.sala_aula2 {
+    top: 60px;
+    left: 1805px;
+    width: 100px;
+    height: 100px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.sala_aula3 {
+    top: -40px;
+    left: 1805px;
+    width: 100px;
+    height: 100px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.sala_aula4 {
+    top: -10px;
+    left: 1680px;
+    width: 100px;
+    height: 100px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.auto_residencial {
+    top: -60px;
+    left: 1680px;
+    width: 100px;
+    height: 60px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.lab_admin {
+    top: -100px;
+    left: 1805px;
+    width: 100px;
+    height: 60px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.oficina_costura {
+    top: -200px;
+    left: 1805px;
+    width: 100px;
+    height: 100px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.medição_tridimencional {
+    top: -120px;
+    left: 1680px;
+    width: 100px;
+    height: 60px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.lab_metrologia {
+    top: -200px;
+    left: 1680px;
+    width: 100px;
+    height: 80px;
+    background-color: lightgreen;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.acesso_disponivel {
+    top: 459px;
+    left: 300px;
+    width: 15px;
+    height: 15px;
+    background-color: lightgreen;
+    border: 1px solid black;
+}
+
+.acesso_restrito {
+    top: 513px;
+    left: 300px;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(238, 144, 144);
+    border: 1px solid black;
+}
+
+.acesso_admin {
+    top: 567px;
+    left: 300px;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(144, 227, 238);
+    border: 1px solid black;
+}
+
+.acesso_livre {
+    top: 621px;
+    left: 300px;
+    width: 15px;
+    height: 15px;
+    background-color:  rgb(255, 255, 255);
+    border: 1px solid black;
+}
+
+.acesso_livre1 {
+    top: -130px;
+    left: 300px;
+    width: 500px;
+    height: 300px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+}
+
+.acesso_livre2 {
+    top: 313px;
+    left: 950px;
+    width: 50px;
+    height: 115px;
+    background-color:  rgb(255, 255, 255);
+    border: 1px solid black;
+}
+
+.acesso_admin1 {
+    top: 313px;
+    left: 1430px;
+    width: 50px;
+    height: 115px;
+    background-color:  rgb(144, 227, 238);
+    border: 1px solid black;
+    text-align: center;
+
+}
+
+.acesso_livre4 {
+    top: 313px;
+    left: 1805px;
+    width: 100px;
+    height: 115px;
+    background-color:rgb(255, 255, 255);
+    border: 1px solid black;
+    text-align: center;
+}
+
+.acesso_admin2 {
+    top: 89px;
+    left: 1680px;
+    width: 100px;
+    height: 80px;
+    background-color:  rgb(144, 227, 238);
+    border: 1px solid black;
+    text-align: center;
+}
+
+.descriptions {
+    color: #fff;
+    transform: translate(0,256.5%);
+    margin-left: 330px;
+    width: 200px;
+    row-gap: 20px;
+}
+
+
+/* parte vo botão voltar começo */
+
+
+
+.button_voltar {
+    position: fixed;
+    top: -200px;
+    left: 20px;
+    padding: 20px 30px;
+    background-color: #ff0000; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* parte vo botão voltar fim*/
+
+
+/* Estilo geral do modal */
+dialog {
+    width: 40%;
+    max-width: 800px;
+    background-color: #1C1C1C; /* Fundo escuro suave */
+    color: #EAEAEA; /* Texto claro */
+    border: none; /* Remove borda padrão do <dialog> */
+    border-radius: 12px; /* Cantos arredondados */
+    padding: 20px 25px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.7); /* Sombra para destaque */
+    position: relative;
+    margin-top: 70px;
+    margin-left: 705px;
+}
+
+/* Botão de fechar */
+.wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.wrapper button {
+    background-color: #FF6F61; /* Vermelho suave */
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper button:hover {
+    background-color: #E85A4F; /* Vermelho mais escuro */
+}
+
+/* Tabela no modal */
+#reservasTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+#reservasTable th, #reservasTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #444; /* Linha divisória discreta */
+}
+
+#reservasTable th {
+    font-weight: bold;
+    color: #FF6F61; /* Cabeçalho em vermelho suave */
+    font-size: 1.1em;
+}
+
+#reservasTable td {
+    color: #EAEAEA; /* Texto das células */
+    font-size: 1em;
+}
+
+/* Animação para exibir o modal */
+dialog[open] {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* parte de dialog fim*/

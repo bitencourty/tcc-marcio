@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Roomap Login</title>
+    {% load static %}
+    <link rel="stylesheet"  type="text/css" href="{% static 'roomap/loginadmin.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="logo-area">
+                <img src="{% static 'roomap/images/logoroomap.png' %}" alt="Roomap Logo" class="logo">
+            </div>
+            <div class="fundo_logo1">
+                <img src="{% static 'roomap/images/prtsuperior.png' %}" alt="Fundo logo" class="fundologo1">
+            </div>
+            <div class="fundo_logo2">
+                <img src="{% static 'roomap/images/prtinferior.png' %}" alt="Fundo logo" class="fundologo2">
+            </div>
+        </div>
+        <div class="right">
+            <div class="login-area">
+                <h2>Bem-vindo a roomap!</h2>
+                <p>Faça seu login de ADMIN</p>
+
+                <form action="{% url 'loginadmin' %}" method="post">
+                    {% csrf_token %}
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Senha" required>
+                    <br>
+                    <br>
+                    <button class="login" href="{% url 'homeadmin' %}">Entrar</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

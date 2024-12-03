@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'roomap/inicio.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="{% static 'roomap/images/logoinicial.png' %}" alt="Roomap Logo" class="logo">
+        </header>
+        <main>
+            <h1>Desenhe o <span class="highlight">futuro</span><br> do seu ambiente com <span class="highlight"><br>roomap</span>.</h1>
+            <p class="description">
+                Transformamos ambientes com precisão e inovação. Especializados em mapeamento de salas,
+                otimizamos seu espaço para máxima eficiência. Descubra como nosso serviço pode elevar a
+                funcionalidade e a organização do seu ambiente.
+            </p>
+            <div class="buttons">
+                <a href="{% url 'loginadmin' %}" class="btn administrador">Administrador</a>
+                <a href="{% url 'login' %}" class="btn docente">Docente</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Perfil</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'roomap/perfil.css' %}">
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("SEU_USER_ID");
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <a href="{% url 'inicio' %}">
+            <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'homedocente' %}">Home</a></li>
+                <li><a href="{% url 'inventariodocente' %}">Inventário</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                <li><a href="{% url 'agenda' %}">Agenda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <button onclick="history.back()" class="learn-more">
+            <span class="circle" aria-hidden="true">
+                <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Voltar</span>
+        </button>
+
+        <div class="profile-container">
+            <div class="image-container">
+                <img src="{% static 'roomap/images/imagemperfil.png' %}" alt="Imagem de perfil" class="profile-img">
+            </div>
+            <div class="info-container">
+                <h2>{{ docente_info.nome_doc }}</h2><br>
+                <p><strong>Cargo:</strong> {{ docente_info.cargo_doc }}</p><br>
+                <p><strong>E-mail:</strong> {{ docente_info.email_doc }}</p><br><br>
+                <a class="edit-button" href="{% url 'editarperfil' %}">Editar Dados</a>
+            </div>
+        </div>
+
+        <div class="help-container">
+            <h3>Precisa de ajuda?</h3>
+            <div class="textarea-button-container">
+                <textarea id="help-text" placeholder="Insira o texto." rows="5" cols="30" onkeydown="checkForEnter(event)"></textarea>
+                <button class="send-button" onclick="sendHelpRequest()">Enviar</button>
+            </div>
+        </div>
+
+
+    </main>
+
+    <script>
+        function sendHelpRequest() {
+            const helpText = document.getElementById("help-text").value;
+
+            if (!helpText.trim()) {
+                alert("Por favor, insira uma mensagem antes de enviar.");
+                return;
+            }
+
+            fetch("/send-help-email/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: JSON.stringify({ message: helpText }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Mensagem enviada com sucesso!");
+                        document.getElementById("help-text").value = ""; // Limpa o campo
+                    } else {
+                        alert("Erro ao enviar a mensagem. Tente novamente.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                    alert("Erro ao enviar a mensagem. Tente novamente.");
+                });
+        }
+
+        function checkForEnter(event) {
+            if (event.key === "Enter" && !event.shiftKey) { // Envia apenas se o Shift não estiver pressionado
+                event.preventDefault(); // Evita quebra de linha no textarea
+                sendHelpRequest(); // Chama a função de envio
+            }
+        }
+    </script>
+</body>
+</html>

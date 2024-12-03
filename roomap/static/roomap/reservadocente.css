@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    background-image: url('images/auditoriomelhor.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 0.2vw;
+    width: 100%;
+}
+
+
+.logo {
+    width: 15vw;
+    margin-left: 3vw;
+}
+
+nav {
+    transform: translate(26%, 10%);
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 11vw;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2vw;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-left: 70px;
+    height: 490px;
+}
+
+.left-column, .right-column {
+    width: 48%;
+    background: rgba(0, 0, 0, 0.500);
+    color: #ffffff;
+    padding: 20px 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+}
+
+.left-column h1 {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.left-column p {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.right-column h2{
+    margin-left: 13%;
+    margin-top: 25px;
+}
+
+.right-column input, select{
+    width: 70%;
+    opacity: 100%;
+    color: #ffffff;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #ffffff;
+    border: 1px solid ;
+    transform: translate(16%, 50%);
+}
+
+
+form input::placeholder {
+    color: #ffffff;
+    opacity: 1;
+}
+
+option {
+    color: #000000;
+    opacity: 1;
+}
+
+
+.reservation-form{
+    color: #ffffff;
+}
+
+form button {
+    background-color: #ec1c24;
+    color: rgb(255, 255, 255);
+    border: none;
+    height: 45px;
+    cursor: pointer;
+    width: 300px;
+    transform: translate(-16%, 150%);
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 98px;
+}
+
+form button:hover {
+    background-color: #a60311;
+}
+.contTeste{
+    display: flex;
+}
+
+.categorie-info {
+    font-weight: bold;
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button.learn-more {
+    width: 12rem;
+    height: auto;
+    transform: translate(80%, -30%);
+}
+
+button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #000000;
+    border-radius: 1.625rem;
+    margin-top:70px;
+}
+
+button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: auto;
+    right: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    left: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-left: 0.125rem solid #fff;
+    transform: rotate(-45deg);
+}
+
+button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 1px;
+    left: 0;
+    right: 23%;
+    bottom: 0;
+    padding: 0.71rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top:70px;
+}
+
+button:hover .circle {
+    width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(-1rem, 0); /* Ajusta o deslocamento para a esquerda */
+}
+
+button:hover .button-text {
+    color: #fff;
+    margin-top:70px;
+}

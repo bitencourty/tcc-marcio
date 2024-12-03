@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionários</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'roomap/addfuncionario.css' %}">
+
+    <script>
+    function loadImage(event) {
+        const img = document.querySelector('.imagemdemo');
+        img.src = URL.createObjectURL(event.target.files[0]);
+    }
+    </script>
+</head>
+<body>
+<header>
+        <a href="{% url 'inicio' %}">
+            <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'homeadmin' %}">Home</a></li>
+                <li><a href="{% url 'inventarioadmin' %}">Inventário</a></li>
+                <li><a href="{% url 'listafuncionarios' %}">Funcionários</a></li>
+                <li><a href="{% url 'salas' %}">Salas</a></li>
+                <li><a href="{% url 'agendadmin' %}">Agenda</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="elementers">
+        <button onclick="history.back()" class="learn-more">
+            <span class="circle" aria-hidden="true">
+                <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Voltar</span>
+        </button>
+
+        <div class="container">
+            <div class="contTeste">
+                <div class="left-column">
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="loadImage(event)">
+                    <img src="{% static 'roomap/images/addimagem.webp' %}" alt="Adicionar imagem" class="imagemdemo" onclick="document.getElementById('fileInput').click()">
+                </div>
+
+                <div class="right-column">
+                    <h2>Cadastrar Novo Funcionário</h2><br>
+                    <p class="description">Preencha os detalhes do Funcionário abaixo para adicionar ao sistema.</p>
+                    <br>
+                    <form class="equipment-form" method="POST" action="{% url 'addfuncionario' %}">
+                        {% csrf_token %}
+                        <input type="text" name="nome_doc" placeholder="Nome Funcionário" required>
+                        <input type="text" name="email_doc" placeholder="Email Funcionário" required>
+                        <input type="password" name="senha_doc" placeholder="Senha Funcionário" required>
+                        <input type="text" name="cargo_doc" placeholder="Cargo Funcionário" required>
+                        <input type="number" name="tel_doc" placeholder="Telefone Funcionário" required>
+                        <button type="submit" id="add-docente-btn">Adicionar Docente</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

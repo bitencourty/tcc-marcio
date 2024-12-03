@@ -1,0 +1,893 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 1vh;
+    width: 100%;
+    z-index: 10; /* Garante que o header fique acima de outros elementos */
+    position: relative; /* Permite que o header não seja sobreposto */
+}
+
+.logo {
+    width: 15vw;
+    margin-left: 3vw;
+}
+
+nav {
+    transform: translate(15%, 10%);
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 9vw;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2vw;
+    cursor: pointer; /* Garante que o cursor indique um link clicável */
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.search-container {
+    position: relative;
+    width:40%;
+    top: 10vh;
+    margin-bottom: 1vh;
+    margin-left:7.5vh;
+}
+
+.search-container-block {
+    position: relative;
+    top: 2.5vh;
+    margin-bottom: 5vh;
+    width: 13.5%;
+    margin-left: 82vw;
+}
+
+.search-controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2vw;
+    height: 3vw;
+    padding: 0 2vw;
+}
+
+.search-bar {
+    padding: 0.9vw;
+    width: 78%;
+    font-size: 1.1vw;
+    color: gray;
+    height: 6.5vh;
+    border-radius: 3vw;
+    border-width: 0.15vw;
+    border-color: black;
+    padding-left: 4vw; /* Ajuste o padding para dar espaço ao ícone */
+}
+
+.search-container i {
+    position: absolute;
+    left: 2vw; /* Ajuste conforme necessário */
+    top: 30%;
+    color: gray;
+}
+
+.block-selector {
+    font-size: 2.5vh;
+    height: 6.5vh;
+    padding: 0 2vh;
+    color: rgb(0, 0, 0);
+    border-radius: 1vh;
+    border: 0.15vw solid #000;
+    width: 100%;
+}
+
+.room-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3vh;
+    top:40vh;
+}
+
+.room-card {
+    width: 30%;
+    background-color: #000;
+    color: white;
+    overflow: hidden;
+    margin: 3.5vh 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s linear; /* Adiciona a transição */
+    border-radius: 2vh;
+}
+
+.room-card:hover {
+    transform: scale(1); /* Amplia a caixa inteira */
+}
+
+.room-card img {
+    width: 100%;
+    height: 23vh;
+    object-fit: cover;
+    transition: transform 0.25s linear; /* Adiciona a transição para a imagem */
+}
+
+.room-card:hover img {
+    transform: scale(1.1); /* Amplia a imagem quando a caixa é ampliada */
+}
+
+.room-info {
+    padding: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.room-info h3 {
+    margin-bottom: 2vh;
+}
+
+.room-info p {
+    margin-bottom: 3vh;
+}
+
+.room-info a {
+    padding: 1vh;
+    width: 100%;
+    background-color: #ec1c24;
+    border: none;
+    border-radius: 2vh;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 3vh;
+    text-align: center;
+    font-weight: bold;
+}
+
+.room-info a:hover {
+    background-color: #ff3535;
+    text-decoration: underline;
+}
+
+#planta-escola {
+    width: 1000px;
+    height: 835px;
+    background-size: cover;
+    position: relative;
+    margin-left: 835px;
+}
+
+#planta-escola h1 {
+    color: #f5f5f5;
+    margin-left: -700px ;
+}
+
+
+.sala {
+    width: 100px;
+    height: 50px;
+    color: white;
+    text-align: center;
+    background-color: rgb(44, 160, 59);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7%;
+}
+
+#auditorio {
+    top: 20vh;
+    left: 5vh;
+    width: 15vh;
+    height: 10vh;
+
+}
+
+#oficina-eletrica {
+    top: 460px;
+    left: 233px;
+    width: 82px;
+    height: 160px;
+}
+
+#biblioteca {
+    top: 270px;
+    left: 852px;
+    width: 60px;
+    height: 95px;
+}
+
+#lab-cam {
+    top: 410px;
+    left: 465px;
+    width: 45px;
+    height: 55px;
+}
+
+#lab-pnh {
+    top: 410px;
+    left: 517px;
+    width: 45px;
+    height: 55px;
+}
+
+#solda {
+    top: 487px;
+    left: 505px;
+    width: 30px;
+    height: 70px;
+}
+
+#oficina-usinagem {
+    top: 488px;
+    left: 550px;
+    height: 127px;
+    width: 187px;
+}
+
+#oficina-automotiva {
+    top: 488px;
+    left: 800px;
+    height: 127px;
+    width: 187px;
+}
+
+#t1 {
+    top: 490px;
+    left: 335px;
+    width: 45px;
+    height: 60px;
+}
+
+#t2 {
+    top: 560px;
+    left: 335px;
+    width: 45px;
+    height: 60px;
+}
+
+#t3 {
+    top: 410px;
+    left: 620px;
+    width: 45px;
+    height: 55px;
+}
+
+#t4 {
+    top: 410px;
+    left: 570px;
+    width: 45px;
+    height: 55px;
+}
+
+#lab-cad {
+    top: 487px;
+    left: 405px;
+    width: 60px;
+    height: 50px;
+}
+
+#lab-mec {
+    top: 487px;
+    left: 470px;
+    width: 30px;
+}
+
+#lab-redes {
+    top: 590px;
+    left: 383px;
+    width: 60px;
+    height: 50px;
+}
+
+#lab-clip {
+    top: 410px;
+    left: 717px;
+    width: 45px;
+    height: 55px;
+}
+
+#lab-ele {
+    top: 410px;
+    left: 766px;
+    width: 70px;
+    height: 55px;
+}
+
+#maquinas-comand {
+    top: 410px;
+    left: 840px;
+    width: 70px;
+    height: 55px;
+}
+
+#lab-metrologia {
+    top: 40px;
+    left: 852px;
+    width: 60px;
+}
+
+#oficina-costura {
+    top: 40px;
+    left: 930px;
+    width: 60px;
+    height: 75px;
+}
+
+#lab-auto-residencial {
+    top: 120px;
+    left: 852px;
+    width: 60px;
+}
+
+#lab-adm {
+    top: 120px;
+    left: 930px;
+    width: 60px;
+}
+
+#sala-aula-1 {
+    top: 285px;
+    left: 930px;
+    width: 60px;
+}
+
+#sala-aula-2 {
+    top: 230px;
+    left: 930px;
+    width: 60px;
+
+}
+
+#sala-aula-3 {
+    top: 175px;
+    left: 930px;
+    width: 60px;
+}
+
+#sala-aula-4 {
+    top: 175px;
+    left: 852px;
+    width: 60px;
+}
+
+
+#med-tridimencional {
+    top: 95px;
+    left: 852px;
+    width: 60px;
+    height: 20px;
+}
+
+.elementers {
+    margin-top: 2vh;
+    width: 100%;
+    padding:1vh;
+}
+
+main {
+    position: absolute; /* Fixa o main sobre o carousel */
+    top: 50%; /* Centraliza verticalmente */
+    left: 2%; /* Posiciona o main 5% a partir da borda esquerda */
+    transform: translateY(-50%); /* Apenas centraliza verticalmente */
+    z-index: 2; /* Garante que o main fique acima do carousel */
+    text-align: left; /* Alinha o texto à esquerda */
+    width: 50%; /* Aumenta a largura para "esticar" o conteúdo */
+    padding: 10vh; /* Adiciona espaçamento interno */
+}
+
+/* Estilo do container do carousel */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 88vh;
+}
+
+.carousel-wrapper {
+    width: 400%; /* 4 itens * 100% */
+    transition: transform 1s linear;
+    height: 100%;
+}
+
+.carousel-items {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-item {
+    position: relative;
+    width: 25%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+  .item1 {
+      width: 221.9vh;
+      height: 90vh;
+  }
+
+  .item2 {
+      width: 208.9vh;
+      height: 90vh;
+  }
+
+  .item3 {
+      width: 214.9vh;
+      height: 90vh;
+  }
+
+  .item4 {
+      width: 214.9vh;
+      height: 90vh;
+  }
+
+
+h1 {
+    font-size: 8.5vh;
+    padding: 1vh;
+    font-weight: 350;
+    margin-top: 10vh;
+    color: #ffffff;
+    display: block;
+}
+
+.highlight {
+    color: #ff4454;
+    font-weight:   600;
+}
+
+.description {
+    font-size: 3vh;
+    padding: 1vh;
+    line-height: 2; /* Aumenta o espaçamento entre as linhas de texto */
+    margin-bottom: 20px; /* Aumenta o espaçamento abaixo da descrição */
+    color: #ffffff;
+}
+
+.administrador {
+    background-color: #e63946;
+    margin-left: 0vh;
+}
+
+.tabela {
+    position: relative;
+    margin-top:2vh;
+    margin-left: 2vh;
+}
+
+#infoTable {
+    position: absolute;
+    top: 4vh;
+    left: 105vh;
+    border-radius: 4vh;
+    border: 1vh solid #e0e0e0;
+    background: white;
+    box-shadow: 0vh 1.5vh 1vh rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: none;
+    padding: 2vh; /* Adiciona um padding interno */
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-in-out;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.table-container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+table {
+    width: 70vh;
+    max-width: 70vh;
+    margin: 0 auto;
+    border-collapse: collapse; /* Remove o espaçamento entre as células */
+}
+
+th {
+    background-color: #ff6b6b;
+    color: #fff;
+    font-weight: bold;
+    padding: 6vh; /* Ajusta o padding do cabeçalho */
+    border-radius: 4vh;
+    text-align: center; /* Alinha o texto à esquerda */
+    font-size: 2.5vh;
+}
+
+tbody {
+    display: block; /* Permite o scroll apenas para o corpo da tabela */
+    max-height: 60vh; /* Define uma altura máxima para o corpo */
+    overflow-y: auto; /* Permite scroll vertical no tbody */
+}
+
+tbody tr {
+    background-color: #ffffff;
+    border-radius: 4vh; /* Bordas arredondadas para as linhas */
+    box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.05);
+    margin: 2vh 0; /* Espaçamento entre os quadrados */
+    display: flex;
+    justify-content: space-between; /* Alinha o conteúdo */
+    padding: 5vh; /* Padding interno */
+    border: 0.02vh solid rgb(200, 200, 200);
+    font-size: 2.5vh;
+}
+
+td {
+    flex: 1; /* Faz cada célula ocupar o mesmo espaço */
+    padding: 15px; /* Ajusta o padding para maior altura */
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1; /* Cor ao passar o mouse */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sign {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sign svg {
+    width: 20px;
+  }
+
+  .sign svg path {
+    fill: white;
+    stroke: white; /* Adiciona o contorno */
+    stroke-width: 1; /* Ajusta a espessura do contorno */
+  }
+
+.text {
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+td{
+    padding: 8px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.icon-trash{
+    display: inline-block;
+    color: #e63946;
+    width: 16px;
+    height: 16px;
+    transform: translate(500%, 10%);
+}
+
+.btn-mapa {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    height: 58px;
+    margin-left:6px;
+    min-width: fit-content;
+}
+
+.front {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 27px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background: hsl(345deg 100% 47%);
+    height: 45px;
+    white-space: nowrap;
+    box-shadow: 0 4px 0 hsl(345deg 100% 32%);
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+}
+
+#btn-agenda {
+    position: relative;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    padding: 0 2em;
+    border: 3px solid hsl(345deg 100% 47%);
+    border-radius: 12px;
+    color: hsl(345deg 100% 47%);
+    text-decoration: none;
+    height: 45px;
+    background: white;
+    box-shadow: 0 4px 0 hsl(345deg 100% 32%);
+    white-space: nowrap;
+    min-width: fit-content;
+    cursor: pointer;
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+    margin-left: 0;
+}
+
+/* Hover states alinhados */
+.btn-mapa:hover .front {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 0 hsl(345deg 100% 32%);
+}
+
+#btn-agenda:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 0 hsl(345deg 100% 32%);
+    color: white;
+    background: hsl(345deg 100% 47%);
+}
+
+/* Active states alinhados */
+.btn-mapa:active .front {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 0 hsl(345deg 100% 32%);
+}
+
+#btn-agenda:active {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 0 hsl(345deg 100% 32%);
+}
+
+#btn-mapa:active {
+    transform: translateY(calc(-10% + 2px));
+    box-shadow: 0 2px 0 hsl(345deg 100% 32%);
+  }
+
+  .btn-mapa:focus:not(:focus-visible) {
+      outline: none;
+  }
+
+  #btn-agenda:before {
+      transition: 0.5s all ease;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      right: 50%;
+      bottom: 0;
+      opacity: 0;
+      content: '';
+      background: hsl(345deg 100% 47%);
+      z-index: -1;
+      border-radius: 12px;
+  }
+
+  #btn-agenda:hover, .btn-agenda:focus {
+      color: white;
+  }
+
+  #btn-agenda:hover:before, .btn-agenda:focus:before {
+      transition: 0.5s all ease;
+      left: 0;
+      right: 0;
+      opacity: 1;
+  }
+
+  #btn-agenda:active {
+      transform: scale(0.9);
+      text-shadow: #000;
+  }
+
+/* Media queries mantidos para responsividade */
+@media (max-width: 768px) {
+    .btn-mapa .front, #btn-agenda {
+        height: 25px;
+        font-size: 1rem;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    /* Header responsivo */
+    header {
+        flex-direction: column;
+        padding: 2vw;
+    }
+
+    .logo {
+        width: 30vw;
+        margin: 2vw auto;
+    }
+
+    nav {
+        transform: none;
+        width: 100%;
+    }
+
+    nav ul {
+        gap: 5vw;
+        justify-content: center;
+    }
+
+    nav ul li a {
+        font-size: 3vw;
+    }
+
+    /* Ajustes do conteúdo principal */
+    main {
+        width: 90%;
+        padding: 5vh;
+        position: relative;
+        transform: none;
+        top: 0;
+        left: 0;
+    }
+
+    h1 {
+        font-size: 4vh;
+        margin-top: 4vh;
+    }
+
+    /* Ajustes da busca */
+    .search-container {
+        width: 80%;
+        transform: none;
+        margin: 20px auto;
+    }
+
+    .block-selector {
+        transform: none;
+        margin: 20px auto;
+        width: 80%;
+    }
+
+    /* Cards responsivos */
+    .room-card {
+        width: 90%; /* 1 card por linha em mobile */
+    }
+
+    /* Tabela responsiva */
+    table {
+        width: 100%;
+    }
+
+    /* Botões responsivos */
+    .btn-mapa .front, #btn-agenda {
+    height: 25px;
+    font-size: 1rem;
+    line-height: 30px;
+    margin-left:100px;
+  }
+
+  #btn-agenda {
+    line-height: 44px;
+    margin-left:100px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+    /* Ajustes específicos para telas muito pequenas */
+    .carousel-container {
+        height: 50vh;
+    }
+
+    .description {
+        font-size: 2vh;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 2vh;
+    }
+
+    nav ul li a {
+        font-size: 4vw;
+    }
+
+    .btn-mapa .front {
+        padding: 1px 5px;
+        font-size: 1.1rem;
+        margin-left:100px;
+      }
+
+      #btn-agenda {
+        font-size: 14px;
+        padding: 0.5em 1.5em;
+        margin-left:100px;
+      }
+
+      .btn-mapa .front, #btn-agenda {
+        height: 45px;
+        font-size: 1rem;
+        line-height: 25px;
+        margin-left:100px;
+      }
+
+      #btn-agenda {
+        line-height: 39px;
+        margin-left:100px;
+      }
+}
+
+/* Crie um container para os botões */
+.button-container {
+    display: flex;
+    gap: 20px; /* Espaço entre os botões */
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .search-controls {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 2vw;
+    }
+
+    .search-container,
+    .search-container-block {
+        width: 100%;
+        margin: 1vh 0;
+        margin-left: 0;
+    }
+
+    .search-container-block {
+        margin-left: 0;
+    }
+}

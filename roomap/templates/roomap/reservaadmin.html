@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Auditório</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'roomap/reservaadmin.css' %}">
+</head>
+<body>
+    <header>
+        <a href="{% url 'inicio' %}">
+            <img src="{% static     'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="{% url 'homeadmin' %}">Home</a></li>
+                <li><a href="{% url 'inventarioadmin' %}">Inventário</a></li>
+                <li><a href="{% url 'listafuncionarios' %}">Funcionários</a></li>
+                <li><a href="{% url 'salas' %}">Salas</a></li>
+                <li><a href="{% url 'agendadmin' %}">Agenda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <button onclick="history.back()" class="learn-more">
+        <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+        </span>
+        <span class="button-text">Voltar</span>
+    </button>
+
+    <div class="container">
+        <div class="contTeste">
+            <div class="left-column">
+                <br><br><br>
+                <h1>{{ sala.nome_sala }}</h1><br>
+                <p><span class="categorie-info">ID:</span> {{ sala.id_sala }}</p><br>
+                <p><span class="categorie-info">Localização:</span> {{ sala.loc_sala }}</p><br>
+                <p><span class="categorie-info">Quantidade de lugares:</span> {{ sala.capac_sala }}</p><br>
+                <p><span class="categorie-info">Uso:</span> {{ sala.status_sala }}</p>
+            </div>
+            <div class="right-column">
+                <H2>Formulário de Reserva</H2>
+                <br>
+                <form class="reservation-form" method="POST" action="{% url 'reservaadmin' %}">
+                    {% csrf_token %}
+                    <input type="text" id="nome_adm" name="nome_adm" placeholder="Nome do Administrador" required>
+                    <select name="turno" required>
+                        <option value="" disabled selected>Selecione um turno</option>
+                        {% for turno in turnos %}
+                            <option value="{{ turno.id_turno }}">{{ turno.nome_turno }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="datetime-local" name="data_hora_inicio" placeholder="Data e Hora de Início" required>
+
+                    <input type="datetime-local" name="data_hora_fim" placeholder="Data e Hora de Fim" required>
+
+                    <input type="hidden" name="id_sala" value="{{ sala.id_sala }}">
+
+                    <button type="submit">Reservar</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

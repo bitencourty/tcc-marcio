@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 8.5px;
+    width: 100%;
+}
+
+.logo {
+    width: 250px;
+    margin-left: 3vw;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 0.2vw;
+    width: 100%;
+}
+
+
+.logo {
+    width: 15vw;
+    margin-left: 3vw;
+}
+
+nav {
+    transform: translate(26%, 10%);
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 11vw;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2vw;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+
+.calendar-container {
+    width: 70%;
+    height: 110vh;
+    margin: 5vh auto;
+    background-color: white;
+    padding: 4vh;
+    box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.1);
+    border-radius: 2vh;
+    font-size: 6vh;
+    color:rgb(0, 0, 0);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3vh;
+    background-color: #b01e23;
+    border-radius: 1vh;
+}
+
+.calendar-header button {
+    background-color: #b01e23;
+    color: #ffffff;
+    border:#ffffff;
+    font-weight: bold;
+    padding: 1.5vh;
+    border-radius: 2vh;
+    cursor: pointer;
+    font-size: 6vh;
+}
+
+.calendar-header span {
+    font-size: 7vh;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 1.5vh;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2vh;
+    table-layout: fixed;
+}
+
+.calendar-table th {
+    background-color: #222;
+    color: white;
+    padding: 1vh;
+    text-align: center;
+    border-radius: 1vh;
+}
+
+.calendar-table td {
+    text-align: center;
+    padding: 1vh;
+    cursor: pointer;
+    border-radius: 1.5vh;
+    border: 0.4vh solid black;
+    width: calc(100% / 7); /* Define largura igual para todas as células */
+    height: 80px; /* Define altura fixa para todas as células */
+    vertical-align: middle;
+}
+
+.calendar-table td:hover {
+    background-color: #f0f0f0;
+    border-color: #222;
+}
+
+.calendar-table td.event-day {
+    background-color: #b01e23;
+    color: white;
+    border-color: #222;
+}
+
+h1{
+    margin-top:-2vh;
+    text-align: center;
+    transform: translate(0,160%);
+    font-size: 5vh;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 5vh;
+    border: 1px solid #ccc;
+    box-shadow: 0 1vh 4vh rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 25vw;
+    border-radius: 3vh;
+    border-color: #222;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    cursor: pointer;
+    font-size: 4vh;
+}
+
+.popup input {
+    margin: 2vh 0;
+    padding: 1vh;
+    width: 100%;
+}
+
+#saveEvent,
+#deleteEvent {
+    margin-top: 2vh;
+    padding: 1.5vh;
+    background-color: #000000;
+    color: white;
+    font-weight: bold;
+    border-radius: 1vh;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+#deleteEvent {
+    background-color: #b01e23;
+}
+
+#saveEvent:hover,
+#deleteEvent:hover {
+    opacity: 0.8;
+}
+
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+button.learn-more {
+    width: 12rem;
+    height: auto;
+    transform: translate(98%, 20%);
+}
+
+button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #000000;
+    border-radius: 1.625rem;
+    margin-top:20px;
+}
+
+button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: auto;
+    right: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    left: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-left: 0.125rem solid #fff;
+    transform: rotate(-45deg);
+}
+
+button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 1px;
+    left: 0;
+    right: 23%;
+    bottom: 0;
+    padding: 0.71rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #282936;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top:20px;
+}
+
+button:hover .circle {
+    width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(-1rem, 0); /* Ajusta o deslocamento para a esquerda */
+}
+
+button:hover .button-text {
+    color: #fff;
+    margin-top:20px;
+}
+
+.search-container {
+    position: relative;
+    width: 30%; /* Ajuste conforme necessário */
+    transform: translate(197%, -181%);
+}
+
+.search-bar {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    color: gray;
+    border-radius: 60px;
+    padding-left: 40px; /* Ajuste o padding para dar espaço ao ícone */
+}
+
+.search-container i {
+    position: absolute;
+    left: 10px; /* Ajuste conforme necessário */
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+.download-button {
+    position: relative;
+    border-width: 0;
+    color: white;
+    font-size: 2.7vh;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 1vh;
+    z-index: 1;
+    margin-top:8vh;
+    margin-left: 58.3vw;
+  }
+
+  .download-button .docs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2vh;
+    min-height: 8vh;
+    padding: 0 2vh;
+    border-radius: 4px;
+    z-index: 1;
+    background-color: #242a35;
+    border: solid 0.2vh #e8e8e82d;
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  .download-button:hover {
+    box-shadow:
+      rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px,
+      rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px,
+      rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
+  .download {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    margin: 0 auto;
+    z-index: -1;
+    border-radius: 0.6vh;
+    transform: translateY(0%);
+    background-color: #b90000;
+    border: solid 0.3vh #b90000;
+    transition: all 0.5s cubic-bezier(0.150, 0, 0.260, 1);
+  }
+
+  .download-button:hover .download {
+    transform: translateY(100%);
+  }
+
+  .download svg polyline,
+  .download svg line {
+    animation: docs 1s infinite;
+  }
+
+  @keyframes docs {
+    0% {
+      transform: translateY(0%);
+    }
+
+    50% {
+      transform: translateY(-50%);
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
+
+#calendar {
+    max-width: 900px;
+    margin: 40px auto;
+}

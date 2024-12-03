@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Página de Cadastro - Roomap</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'roomap/cadastro.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="illustration">
+                <img src="{% static 'roomap/images/ilustraçãocadastro.png' %}" alt="Ilustração Cadastro">
+            </div>
+        </div>
+
+        <div class="right">
+            <h2>Página de Cadastro</h2>
+            <p>Registre-se!</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

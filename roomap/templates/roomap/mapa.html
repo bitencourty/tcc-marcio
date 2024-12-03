@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa das Salas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'roomap/mapa.css' %}">
+</head>
+<body>
+    <button onclick="history.back()" class="button_voltar">
+        <span>Voltar</span>
+    </button>
+
+    <div class="mapa">
+        <div class="sala acesso_livre1">REFEITÓRIO/CANTINA</div>
+        <div class="sala acesso_livre2">B</div>
+        <div class="sala acesso_admin1">A<br>DM</div>
+        <div class="sala acesso_livre4">B</div>
+        <div class="sala acesso_admin2">PROG.</div>
+
+        <!-- Todas as salas representadas com cores dinâmicas -->
+        <div class="sala auditorio"
+             onclick="modal.showModal(); exibirReservasPorSala(1);"
+             style="background-color: {% if salas_status.1 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            AUDITÓRIO
+        </div>
+        <div class="sala oficina_eletrica"
+             onclick="modal.showModal(); exibirReservasPorSala(2);"
+             style="background-color: {% if salas_status.2 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            OFICINA ELÉTRICA
+        </div>
+        <div class="sala t1"
+             onclick="modal.showModal(); exibirReservasPorSala(3);"
+             style="background-color: {% if salas_status.3 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            T1
+        </div>
+        <div class="sala t2"
+             onclick="modal.showModal(); exibirReservasPorSala(4);"
+             style="background-color: {% if salas_status.4 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            T2
+        </div>
+        <div class="sala lab_cad"
+             onclick="modal.showModal(); exibirReservasPorSala(5);"
+             style="background-color: {% if salas_status.5 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB CAD
+        </div>
+        <div class="sala lab_redes"
+             onclick="modal.showModal(); exibirReservasPorSala(6);"
+             style="background-color: {% if salas_status.6 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB REDES
+        </div>
+        <div class="sala lab_mec"
+             onclick="modal.showModal(); exibirReservasPorSala(7);"
+             style="background-color: {% if salas_status.7 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB MEC
+        </div>
+        <div class="sala solda"
+             onclick="modal.showModal(); exibirReservasPorSala(8);"
+             style="background-color: {% if salas_status.8 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            SOLDA
+        </div>
+        <div class="sala oficna_usinagem"
+             onclick="modal.showModal(); exibirReservasPorSala(9);"
+             style="background-color: {% if salas_status.9 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            OFICINA USINAGEM
+        </div>
+        <div class="sala oficina_automobilistica"
+             onclick="modal.showModal(); exibirReservasPorSala(10);"
+             style="background-color: {% if salas_status.10 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            OFICINA AUTOMOBILÍSTICA
+        </div>
+        <div class="sala lab_cam"
+             onclick="modal.showModal(); exibirReservasPorSala(11);"
+             style="background-color: {% if salas_status.11 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB CAM
+        </div>
+        <div class="sala lab_pnh"
+             onclick="modal.showModal(); exibirReservasPorSala(12);"
+             style="background-color: {% if salas_status.12 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB PNH
+        </div>
+        <div class="sala t3"
+             onclick="modal.showModal(); exibirReservasPorSala(13);"
+             style="background-color: {% if salas_status.13 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            T3
+        </div>
+        <div class="sala t4"
+             onclick="modal.showModal(); exibirReservasPorSala(14);"
+             style="background-color: {% if salas_status.14 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            T4
+        </div>
+        <div class="sala lab_clp"
+             onclick="modal.showModal(); exibirReservasPorSala(15);"
+             style="background-color: {% if salas_status.15 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB CLP
+        </div>
+        <div class="sala lab_eletronica"
+             onclick="modal.showModal(); exibirReservasPorSala(16);"
+             style="background-color: {% if salas_status.16 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB ELETRÔNICA
+        </div>
+        <div class="sala maq_comand"
+             onclick="modal.showModal(); exibirReservasPorSala(17);"
+             style="background-color: {% if salas_status.17 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            MÁQUINAS COMAND
+        </div>
+        <div class="sala biblioteca"
+             onclick="modal.showModal(); exibirReservasPorSala(18);"
+             style="background-color: {% if salas_status.18 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            BIBLIOTECA
+        </div>
+        <div class="sala sala_aula1"
+             onclick="modal.showModal(); exibirReservasPorSala(19);"
+             style="background-color: {% if salas_status.19 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            SALA DE AULA 1
+        </div>
+        <div class="sala sala_aula2"
+             onclick="modal.showModal(); exibirReservasPorSala(20);"
+             style="background-color: {% if salas_status.20 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            SALA DE AULA 2
+        </div>
+        <div class="sala sala_aula3"
+             onclick="modal.showModal(); exibirReservasPorSala(21);"
+             style="background-color: {% if salas_status.21 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            SALA DE AULA 3
+        </div>
+        <div class="sala sala_aula4"
+             onclick="modal.showModal(); exibirReservasPorSala(22);"
+             style="background-color: {% if salas_status.22 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            SALA DE AULA 4
+        </div>
+        <div class="sala auto_residencial"
+             onclick="modal.showModal(); exibirReservasPorSala(23);"
+             style="background-color: {% if salas_status.23 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            AUTO RESIDENCIAL
+        </div>
+        <div class="sala lab_admin"
+             onclick="modal.showModal(); exibirReservasPorSala(24);"
+             style="background-color: {% if salas_status.24 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB ADMIN
+        </div>
+        <div class="sala oficina_costura"
+             onclick="modal.showModal(); exibirReservasPorSala(25);"
+             style="background-color: {% if salas_status.25 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            OFICINA COSTURA
+        </div>
+        <div class="sala medição_tridimencional"
+             onclick="modal.showModal(); exibirReservasPorSala(26);"
+             style="background-color: {% if salas_status.26 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            MEDIÇÃO TRIDIMENSIONAL
+        </div>
+        <div class="sala lab_metrologia"
+             onclick="modal.showModal(); exibirReservasPorSala(27);"
+             style="background-color: {% if salas_status.27 == 'reservada' %} rgb(238, 144, 144) {% else %} lightgreen {% endif %};">
+            LAB METROLOGIA
+        </div>
+    </div>
+
+    <!-- Modal para exibir detalhes das reservas -->
+    <dialog id="modal">
+        <div class="wrapper">
+            <button onclick="modal.close()">Fechar</button>
+        </div>
+
+        <h2>Detalhes da Reserva</h2>
+        <table id="reservasTable">
+            <thead>
+                <tr>
+                    <th>Nome do docente</th>
+                    <th>Data e Hora de Início</th>
+                    <th>Data e Hora de Fim</th>
+                    <th>Status da Reserva</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As reservas serão inseridas aqui dinamicamente -->
+            </tbody>
+        </table>
+    </dialog>
+
+    <script>
+        const tabelas = [
+        {% for tabela in tabelas %}
+            {
+                email_doc: "{{ tabela.email_doc }}",
+                data_hora_inicio: "{{ tabela.data_hora_inicio }}",
+                data_hora_fim: "{{ tabela.data_hora_fim }}",
+                status_reserva: "{{ tabela.status_reserva }}",
+                id_sala: {{ tabela.id_sala }},
+            },
+        {% endfor %}
+        ];
+
+        // Função para exibir reservas filtradas pela sala
+        function exibirReservasPorSala(salaId) {
+            const tabelaBody = document.querySelector("#reservasTable tbody");
+            tabelaBody.innerHTML = ""; // Limpar a tabela antes de adicionar as novas linhas
+
+            // Filtrar as reservas que correspondem ao id_sala passado como parâmetro
+            const reservasFiltradas = tabelas.filter(tabela => tabela.id_sala == salaId);
+
+            // Verifica se há reservas para a sala
+            if (reservasFiltradas.length > 0) {
+                reservasFiltradas.forEach(reserva => {
+                    // Criar uma nova linha na tabela para cada reserva filtrada
+                    const novaLinha = document.createElement("tr");
+
+                    novaLinha.innerHTML = `
+                        <td>${reserva.email_doc}</td>
+                        <td>${reserva.data_hora_inicio}</td>
+                        <td>${reserva.data_hora_fim}</td>
+                        <td>${reserva.status_reserva}</td>
+                    `;
+
+                    tabelaBody.appendChild(novaLinha); // Adiciona a linha na tabela
+                });
+            } else {
+                // Caso não haja reservas, exibe uma mensagem
+                const novaLinha = document.createElement("tr");
+                novaLinha.innerHTML = `<td colspan="4" style="text-align: center;">Nenhuma reserva encontrada.</td>`;
+                tabelaBody.appendChild(novaLinha);
+            }
+        }
+    </script>
+</body>
+</html>

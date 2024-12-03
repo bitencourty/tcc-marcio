@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    align-items: stretch;
+}
+
+html, body {
+    height: 100%; /* Garantindo que o html e o body ocupem 100% da altura */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    display: flex;
+    justify-content: flex-start; /* Centraliza o conteúdo horizontalmente */
+    align-items: flex-start; /* Mantém o alinhamento no topo */
+    overflow: hidden;
+    background-image: url('images/fundopaginainicial.png');
+    background-size: cover; /* Faz com que a imagem cubra toda a área */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    text-align: left;
+    max-width: 980px;
+    margin-left:20px;
+    margin-top: 20px; /* Margem superior para espaçamento */
+    padding: 0 20px; /* Adicionando padding para evitar que o conteúdo fique colado nas bordas */
+}
+
+.logo {
+    width: 230px;
+    margin-left:-7px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 650;
+    margin-bottom: 20px;
+    margin-top:-15px;
+    max-width:540px;
+}
+
+.highlight {
+    color: #e63946;
+    font-weight: 600;
+}
+
+.description {
+    font-size: 15px;
+    line-height: 2;
+    max-width:800px;
+    text-align-last:initial;
+    margin-bottom: 25px;
+    margin-top:-10px;
+    color: #ffffff;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    text-align:center;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+.docente {
+    background-color: #33333313;
+    border: 1px solid #ffffff;
+    width: 180px;
+    text-align:center;
+}
+
+.administrador {
+    background-color: #e63946;
+    border: 1px solid #ffffff;
+    width: 180px;
+    text-align:center;
+}
+
+
+.administrador:hover {
+    background-color: #b12121;
+}
+
+.docente:hover {
+    background-color: #67676746;
+    color:#ffffff;
+}
