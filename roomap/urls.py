@@ -4,11 +4,11 @@ from .views import (
     loginadmin_view, login_view, cadastro_view,
     homedocente_view, homeadmin_view,
     reservaadmin_view, reservadocente_view, reserva_sala_view, reserva_sala_view_docente, deletar_reservas_expiradas,
-    reservas_do_dia_docente, reservas_do_dia_admin,
+    reservas_do_dia_docente, reservas_do_dia_admin, excluir_reserva_docente,
     inventariodocente_view, inventarioadmin_view, excluir_maquina,
     listafuncionarios_view, addmaquina_view, addfuncionario_view, excluir_docente,
     perfil_view, editarperfil_view,
-    agenda_view, agenda_admin_view,
+    agenda_view, agendaadmin_view,
     salas_view, mapa_view,
     relatorio_admin, relatorio_docente,
     send_help_email,
@@ -51,7 +51,7 @@ urlpatterns = [
 
     # Agenda
     path('agenda/', agenda_view, name='agenda'),
-    path('agendadmin/', agenda_admin_view, name='agendadmin'),
+    path('agendadmin/', agendaadmin_view, name='agendadmin'),
 
     # Outras páginas
     path('salas/', salas_view, name='salas'),
@@ -63,4 +63,6 @@ urlpatterns = [
 
     # Contato
     path("send-help-email/", send_help_email, name="send_help_email"),
+
+    path('excluir-reserva/<int:id_reserva>/', excluir_reserva_docente, name='excluir_reserva_docente'),
 ]

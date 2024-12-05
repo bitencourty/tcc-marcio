@@ -95,6 +95,21 @@ class ReservaMesAdmin(models.Model):
     class Meta:
         managed = False  # Django não gerencia esta tabela/view
         db_table = 'reservas_ultimo_mes_admin'  # Nome atualizado da view no MySQL
+
+
+class ReservaMesDocente(models.Model):
+    id_reserva = models.IntegerField(primary_key=True)
+    email_doc = models.EmailField()
+    data_hora_inicio = models.DateTimeField()
+    data_hora_fim = models.DateTimeField()
+    status_reserva = models.CharField(max_length=15)
+    id_sala = models.IntegerField()
+    turno_id = models.IntegerField(null=True, blank=True)  # Campo de turno incluído
+
+    class Meta:
+        managed = False  # Django não gerencia esta tabela/view
+        db_table = 'reservas_ultimo_mes_docente'  # Nome da view no MySQ
+
 class ReservaUltimaSemanaDocente(models.Model):
     id_reserva = models.IntegerField(primary_key=True)
     nome_doc = models.CharField(max_length=100)

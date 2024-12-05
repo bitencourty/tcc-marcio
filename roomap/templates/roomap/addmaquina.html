@@ -45,7 +45,8 @@
                 </div>
 
                 <div class="right-column">
-                    <form class="equipment-form" method="POST" action="path/to/your/addmaquina">
+                    <form class="equipment-form" method="POST" action="{% url 'addmaquina' %}">
+                        {% csrf_token %}
                         <h2>Cadastar novo equipamento</h2><br>
                         <p class="description">Preencha os detalhes do Funcionário abaixo para adicionar ao sistema.</p>
                         <br>

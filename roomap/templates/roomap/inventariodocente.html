@@ -10,11 +10,12 @@
 
 </head>
 <body>
-    <header>
+    <header class="header">
         <a href="{% url 'inicio' %}">
             <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
         </a>
-        <nav>
+        <div id="menu-btn" onclick="toggleMenu()">☰</div>
+        <nav class="menu-bar">
             <ul>
                 <li><a href="{% url 'homedocente' %}">Home</a></li>
                 <li><a href="{% url 'inventariodocente' %}">Inventário</a></li>
@@ -86,6 +87,11 @@
             noResultsMessage.style.display = 'none'; // Oculta a mensagem
         }
     });
+
+    function toggleMenu() {
+                const menuBar = document.querySelector('.menu-bar');
+                menuBar.classList.toggle('show');
+    }
 </script>
 
 </body>

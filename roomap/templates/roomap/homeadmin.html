@@ -94,7 +94,7 @@
             <a class="front text" href="{% url 'mapa' %}">Visualizar Mapa Geral</a>
         </button>
 
-        <button id="btn-agenda">Agenda Diária</button>
+        <button id="btn-agenda"  onclick="modal.showModal()">Agenda Diária</button>
     </main>
 
     <div class="carousel-container">
@@ -148,33 +148,33 @@
     </div>
 
     <dialog id="modal">
-        <div class="wrapper">
-            <button onclick="modal.close()">Fechar</button>
-        </div>
-        <h2>Agenda Diária</h2>
-        <table>
-            <thead>
+    <div class="wrapper">
+        <button onclick="modal.close()">Fechar</button>
+    </div>
+    <h2>Agenda Diária</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Local</th>
+                <th>Início</th>
+                <th>Fim</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
                 <tr>
-                    <th>Local</th>
-                    <th>Início</th>
-                    <th>Fim</th>
+                    <td>{{ reserva.nome_sala }}</td>  <!-- Exibe o nome da sala -->
+                    <td>{{ reserva.data_hora_inicio|time }}</td>
+                    <td>{{ reserva.data_hora_fim|time }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {% for reserva in reservas %}
-                    <tr>
-                        <td>{{ reserva.id_sala }}</td>
-                        <td>{{ reserva.data_hora_inicio|time }}</td>
-                        <td>{{ reserva.data_hora_fim|time }}</td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="3">Nenhuma reserva para hoje.</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </dialog>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma reserva para hoje.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</dialog>
 
 
     <script>
@@ -203,5 +203,49 @@
             });
         }
     </script>
+<script>
+    const tabelas = [
+    {% for tabela in tabelas %}
+        {
+            nome_adm: "{{ tabela.nome_adm }}",
+            data_hora_inicio: "{{ tabela.data_hora_inicio }}",
+            data_hora_fim: "{{ tabela.data_hora_fim }}",
+            status_reserva: "{{ tabela.status_reserva }}",
+            nome_sala: "{{ tabela.nome_sala }}"  <!-- Agora estamos usando nome_sala -->
+        },
+    {% endfor %}
+    ];
+
+    // Função para exibir reservas filtradas pela sala
+    function exibirReservasPorSala(nomeSala) {
+        const tabelaBody = document.querySelector("#reservasTable tbody");
+        tabelaBody.innerHTML = ""; // Limpar a tabela antes de adicionar as novas linhas
+
+        // Filtrar as reservas que correspondem ao nome_sala passado como parâmetro
+        const reservasFiltradas = tabelas.filter(tabela => tabela.nome_sala === nomeSala);
+
+        // Verifica se há reservas para a sala
+        if (reservasFiltradas.length > 0) {
+            reservasFiltradas.forEach(reserva => {
+                // Criar uma nova linha na tabela para cada reserva filtrada
+                const novaLinha = document.createElement("tr");
+
+                novaLinha.innerHTML = `
+                    <td>${reserva.nome_adm}</td>
+                    <td>${reserva.data_hora_inicio}</td>
+                    <td>${reserva.data_hora_fim}</td>
+                    <td>${reserva.status_reserva}</td>
+                `;
+
+                tabelaBody.appendChild(novaLinha); // Adiciona a linha na tabela
+            });
+        } else {
+            // Caso não haja reservas, exibe uma mensagem
+            const novaLinha = document.createElement("tr");
+            novaLinha.innerHTML = `<td colspan="4" style="text-align: center;">Nenhuma reserva encontrada.</td>`;
+            tabelaBody.appendChild(novaLinha);
+        }
+    }
+</script>
 </body>
 </html>

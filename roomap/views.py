@@ -7,7 +7,7 @@ from mysql.connector import errorcode
 import mysql.connector
 from .models import (
     Reserva, Reservaadm, Equipamento, Docente, Sala, SalaView, ViewDadosDocentes,
-    ReservaMesAdmin, ReservaUltimaSemanaDocente, ReservaDiaAtualAdmin, Turno)
+    ReservaMesAdmin, ReservaDiaAtualAdmin, Turno, ReservaMesDocente)
 from django.contrib.auth.models import User
 from .forms import DocenteForm
 from django.db import connection, transaction
@@ -20,8 +20,7 @@ import json
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.utils.timezone import make_aware
-
-
+from django.views.decorators.csrf import csrf_exempt
 
 def inicio_view(request):
     if request.method == 'POST':
@@ -214,8 +213,67 @@ def homedocente_view(request):
     })
 
 def homeadmin_view(request):
+
+    deletar_reservas_expiradas_admin()
+
+    # Obter a data atual
+    hoje = now().date()
+
+    # Verificar se o nome do administrador está na sessão
+    nome_adm = request.session.get('nome_adm')
+    if not nome_adm:
+        # Caso não esteja na sessão, redirecionar para a página de login
+        return redirect('login')
+
+    # Query SQL para buscar reservas do dia atual feitas pelos administradores
+    query = """
+            SELECT r.id_reserva, r.data_hora_inicio, r.data_hora_fim, r.status_reserva, r.nome_adm, r.id_sala, s.nome_sala, t.nome_turno
+            FROM reservasadmin r
+            JOIN salas s ON r.id_sala = s.id_sala
+            JOIN turnos t ON r.turno_id = t.id_turno
+            WHERE DATE(r.data_hora_inicio) = %s AND r.nome_adm = %s
+        """
+    with connection.cursor() as cursor:
+        cursor.execute(query, [hoje, nome_adm])
+        reservas = cursor.fetchall()
+
+    # Formatar os dados das reservas para uso no template
+    reservas_formatadas = [
+        {
+            'id': reserva[0],
+            'data_hora_inicio': reserva[1],
+            'data_hora_fim': reserva[2],
+            'status_reserva': reserva[3],
+            'nome_adm': reserva[4],
+            'id_sala': reserva[5],
+            'nome_sala': reserva[6],
+            'nome_turno': reserva[7],
+        }
+        for reserva in reservas
+    ]
+
+    # Obter todas as salas do banco de dados
     salas = Sala.objects.all()
-    return render(request, 'roomap/homeadmin.html', {'salas': salas})
+
+    # Criar um dicionário para rastrear o status de cada sala
+    salas_status = {}
+    for reserva in reservas_formatadas:
+        id_sala = reserva['id_sala']
+        salas_status[id_sala] = 'reservada'
+
+    # Garantir que salas sem reservas sejam marcadas como 'disponível'
+    total_salas = 27  # Atualize conforme o número de salas no banco
+    for id_sala in range(1, total_salas + 1):
+        if id_sala not in salas_status:
+            salas_status[id_sala] = 'disponível'
+
+    # Renderizar o template com os dados
+    return render(request, 'roomap/homeadmin.html', {
+        'reservas': reservas_formatadas,  # Dados das reservas do dia atual dos administradores
+        'salas': salas,                   # Todas as salas
+        'salas_status': salas_status      # Status das salas (reservada ou disponível)
+    })
+
 
 def reserva_sala_view(request):
     # Obtém o ID da sala a partir da URL
@@ -522,14 +580,14 @@ def deletar_reservas_expiradas():
 
 def relatorio_admin(request):
     # Verifica se o administrador está logado
-    nome_adm_logado = request.session.get('nome_adm')  # Nome do admin logado
+    nome_adm_logado = request.session.get('nome_adm')
+    print("Admin logado:", nome_adm_logado)
 
     if not nome_adm_logado:
         mensagem = """
         <html>
         <head>
             <style>
-                /* Estilos para mensagens de erro */
                 body {
                     font-family: Arial, sans-serif;
                     background-color: #f7f7f7;
@@ -584,14 +642,17 @@ def relatorio_admin(request):
         return HttpResponse(mensagem)
 
     # Busca as reservas na view do MySQL
-    reservas = ReservaMesAdmin.objects.filter(nome_adm=nome_adm_logado)
+    reservas = ReservaMesAdmin.objects.all()  # Teste sem filtro
+    print("Todas as reservas:", list(reservas))
+
+    # Debug: Verifique o queryset no terminal
+    print("Reservas encontradas:", list(reservas))
 
     if not reservas.exists():
         mensagem = """
         <html>
         <head>
             <style>
-                /* Estilos para mensagens de erro */
                 body {
                     font-family: Arial, sans-serif;
                     background-color: #f7f7f7;
@@ -676,11 +737,14 @@ def relatorio_admin(request):
     doc.build(elements)
     return response
 
-def relatorio_docente(request):
-    # Verifica se o docente está logado
-    email_logado = request.session.get('email')  # Email do docente logado
 
-    if not email_logado:
+
+def relatorio_docente(request):
+    email_docente_logado = request.session.get('email_doc')
+    print("Sessão atual:", request.session.items())  # Depuração
+
+    if not email_docente_logado:
+        print("Nenhum email_doc na sessão.")  # Mensagem para depuração
         mensagem = """
         <html>
         <head>
@@ -730,7 +794,7 @@ def relatorio_docente(request):
         <body>
             <div class="message-container">
                 <h1>Acesso Negado</h1>
-                <p>Você precisa estar logado para acessar esta funcionalidade.</p>
+                <p>Você precisa estar logado como docente para acessar esta funcionalidade.</p>
                 <a href="/homedocente/">Voltar para Home</a>
             </div>
         </body>
@@ -738,8 +802,9 @@ def relatorio_docente(request):
         """
         return HttpResponse(mensagem)
 
-    # Filtrar reservas utilizando a view MySQL e o email do docente
-    reservas = ReservaUltimaSemanaDocente.objects.filter(nome_doc=email_logado)
+    # Prossiga com a lógica do relatório se `email_doc` estiver correto
+    reservas = ReservaMesDocente.objects.filter(email_doc=email_docente_logado)
+    print("Reservas encontradas:", list(reservas))
 
     if not reservas.exists():
         mensagem = """
@@ -791,7 +856,7 @@ def relatorio_docente(request):
         <body>
             <div class="message-container">
                 <h1>Nenhuma Reserva Encontrada</h1>
-                <p>Não há reservas registradas para este docente na última semana.</p>
+                <p>Não há reservas registradas para este docente no último mês.</p>
                 <a href="/homedocente/">Voltar para Home</a>
             </div>
         </body>
@@ -799,9 +864,9 @@ def relatorio_docente(request):
         """
         return HttpResponse(mensagem)
 
-    # Caso existam reservas, gere o PDF (continuar lógica de geração do PDF)
+    # Caso existam reservas, gere o PDF
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="relatorio_semana.pdf"'
+    response['Content-Disposition'] = 'attachment; filename="relatorio_docente.pdf"'
 
     # Configura o PDF
     doc = SimpleDocTemplate(response, pagesize=letter)
@@ -809,19 +874,31 @@ def relatorio_docente(request):
     styles = getSampleStyleSheet()
     title_style = styles['Title']
 
-    elements.append(Paragraph("Relatório de Reservas - Semana Atual", title_style))
+    elements.append(Paragraph("Relatório de Reservas - Último Mês", title_style))
 
-    data = [["ID", "Data Início", "Data Fim", "Status", "Sala"]]
+    data = [["ID", "Docente", "Data Início", "Data Fim", "Status", "Sala", "Turno"]]
     for reserva in reservas:
+        turno = reserva.turno_id if hasattr(reserva, 'turno_id') else "N/A"
         data.append([
             reserva.id_reserva,
+            reserva.email_doc,
             reserva.data_hora_inicio.strftime("%d/%m/%Y %H:%M"),
             reserva.data_hora_fim.strftime("%d/%m/%Y %H:%M"),
             reserva.status_reserva,
             reserva.id_sala,
+            turno
         ])
 
-    table = Table(data)
+    table = Table(data, hAlign='LEFT')
+    table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                               ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                               ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                              ]))
     elements.append(table)
 
     doc.build(elements)
@@ -906,27 +983,41 @@ def reservadocente_view(request):
             return redirect(f'/reservadocente/?sala_id={id_sala}')
 
 def agenda_view(request):
-    # Recupera todas as reservas
-    reservas = Reserva.objects.select_related('sala').all()
+    # Recupera o e-mail do docente logado
+    email_docente_logado = request.session.get('email_doc')
+
+    if not email_docente_logado:
+        # Se o docente não estiver logado, pode redirecionar para a página de login
+        return redirect('login')  # Ajuste para o nome correto da sua URL de login
+
+    # Recupera todas as reservas do docente logado
+    reservas = Reserva.objects.select_related('sala').filter(email_doc=email_docente_logado)
 
     # Serializa os eventos para o calendário
-    eventos = [
-        {
-            "title": f"Sala: {reserva.sala.nome_sala}",
-            "start": reserva.data_hora_inicio.strftime('%Y-%m-%dT%H:%M:%S'),
-            "end": reserva.data_hora_fim.strftime('%Y-%m-%dT%H:%M:%S'),
-            "status": reserva.status_reserva,
-            "sala": reserva.sala.nome_sala,
-            "docente": reserva.email_doc,
-        }
-        for reserva in reservas
-    ]
+    eventos = []
+    for reserva in reservas:
+        try:
+            # Verifica se as datas de início e fim são válidas antes de formatar
+            if reserva.data_hora_inicio and reserva.data_hora_fim:
+                eventos.append({
+                    "title": f"Sala: {reserva.sala.nome_sala}",
+                    "start": reserva.data_hora_inicio.strftime('%Y-%m-%dT%H:%M:%S'),
+                    "end": reserva.data_hora_fim.strftime('%Y-%m-%dT%H:%M:%S'),
+                    "status": reserva.status_reserva,
+                    "sala": reserva.sala.nome_sala,
+                    "docente": reserva.email_doc,
+                })
+            else:
+                print(f"Reserva com datas inválidas: {reserva.id_reserva}")
+        except Exception as e:
+            print(f"Erro ao formatar as datas para a reserva {reserva.id_reserva}: {e}")
+
     print(eventos)
 
     # Renderiza o template com os eventos
     return render(request, 'roomap/agenda.html', {"eventos": eventos})
 
-def agenda_admin_view(request):
+def agendaadmin_view(request):
     # Recupera todas as reservas
     reservas = Reservaadm.objects.select_related('sala').all()
 
@@ -1041,3 +1132,9 @@ def excluir_docente(request, id_doc):
         )
 
     return redirect('listafuncionarios')
+
+def deletar_reservas_expiradas_admin():
+    agora = datetime.now()
+    with connection.cursor() as cursor:
+        # Excluir todas as reservas onde data_hora_fim já passou
+        cursor.execute("DELETE FROM reservasadmin WHERE data_hora_fim < %s", [agora]) # função que deleta as reservas inspiradas.

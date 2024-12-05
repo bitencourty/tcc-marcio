@@ -43,11 +43,12 @@
     </script>
 </head>
 <body>
-    <header>
+    <header class="header">
         <a href="{% url 'inicio' %}">
             <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
         </a>
-        <nav>
+        <div id="menu-btn" onclick="toggleMenu()">☰</div>
+        <nav class="menu-bar">
             <ul>
                 <li><a href="{% url 'homedocente' %}">Home</a></li>
                 <li><a href="{% url 'inventariodocente' %}">Inventário</a></li>
@@ -149,30 +150,31 @@
     </div>
 
     <dialog id="modal">
-    <div class="wrapper">
-        <button onclick="modal.close()">Fechar</button>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Reservas</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for reserva in reservas %}
+        <div class="wrapper">
+            <button onclick="modal.close()">Fechar</button>
+        </div>
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ reserva.nome_sala }}</td>  <!-- Exibe o nome da sala -->
-                    <td>{{ reserva.data_hora_inicio|time }}</td>
-                    <td>{{ reserva.data_hora_fim|time }}</td>
+                    <th>Reservas</th>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="3">Nenhuma reserva para hoje.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</dialog>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.nome_sala }}</td>  <!-- Exibe o nome da sala -->
+                        <td>{{ reserva.data_hora_inicio|time }}</td>
+                        <td>{{ reserva.data_hora_fim|time }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">Nenhuma reserva para hoje.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </dialog>
+
 
     <script>
         // Script do carousel
@@ -250,7 +252,7 @@
                 data_hora_inicio: "{{ tabela.data_hora_inicio }}",
                 data_hora_fim: "{{ tabela.data_hora_fim }}",
                 status_reserva: "{{ tabela.status_reserva }}",
-                nome_sala: "{{ tabela.nome_sala }}"  <!-- Agora estamos usando nome_sala -->
+                nome_sala: "{{ tabela.nome_sala }}"
             },
         {% endfor %}
         ];
@@ -285,6 +287,13 @@
                 tabelaBody.appendChild(novaLinha);
             }
         }
+
+        function toggleMenu() {
+                const menuBar = document.querySelector('.menu-bar');
+                menuBar.classList.toggle('show');
+        }
+
+
     </script>
 </body>
 </html>

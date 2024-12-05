@@ -46,7 +46,7 @@
                 <br>
                 <form class="reservation-form" method="POST" action="{% url 'reservaadmin' %}">
                     {% csrf_token %}
-                    <input type="text" id="nome_adm" name="nome_adm" placeholder="Nome do Administrador" required>
+                    <input type="text" id="nome_adm" name="nome_adm" placeholder="Email" required>
                     <select name="turno" required>
                         <option value="" disabled selected>Selecione um turno</option>
                         {% for turno in turnos %}
