@@ -531,7 +531,6 @@ def salas_view(request):
 def mapa_view(request):
     deletar_reservas_expiradas()
 
-    # Query SQL para buscar todas as reservas (docentes e admin)
     query = """
         SELECT id_reserva, data_hora_inicio, data_hora_fim, status_reserva, email_doc, id_sala
         FROM reservas
@@ -556,7 +555,6 @@ def mapa_view(request):
         for reserva in reservas
     ]
 
-    # Criar um dicionário para rastrear o status de cada sala
     salas_status = {}
     for reserva in reservas_formatadas:
         id_sala = reserva['id_sala']
@@ -983,35 +981,21 @@ def reservadocente_view(request):
             return redirect(f'/reservadocente/?sala_id={id_sala}')
 
 def agenda_view(request):
-    # Recupera o e-mail do docente logado
-    email_docente_logado = request.session.get('email_doc')
-
-    if not email_docente_logado:
-        # Se o docente não estiver logado, pode redirecionar para a página de login
-        return redirect('login')  # Ajuste para o nome correto da sua URL de login
-
-    # Recupera todas as reservas do docente logado
-    reservas = Reserva.objects.select_related('sala').filter(email_doc=email_docente_logado)
+    # Recupera todas as reservas
+    reservas = Reserva.objects.select_related('sala').all()
 
     # Serializa os eventos para o calendário
-    eventos = []
-    for reserva in reservas:
-        try:
-            # Verifica se as datas de início e fim são válidas antes de formatar
-            if reserva.data_hora_inicio and reserva.data_hora_fim:
-                eventos.append({
-                    "title": f"Sala: {reserva.sala.nome_sala}",
-                    "start": reserva.data_hora_inicio.strftime('%Y-%m-%dT%H:%M:%S'),
-                    "end": reserva.data_hora_fim.strftime('%Y-%m-%dT%H:%M:%S'),
-                    "status": reserva.status_reserva,
-                    "sala": reserva.sala.nome_sala,
-                    "docente": reserva.email_doc,
-                })
-            else:
-                print(f"Reserva com datas inválidas: {reserva.id_reserva}")
-        except Exception as e:
-            print(f"Erro ao formatar as datas para a reserva {reserva.id_reserva}: {e}")
-
+    eventos = [
+        {
+            "title": f"Sala: {reserva.sala.nome_sala}",
+            "start": reserva.data_hora_inicio.strftime('%Y-%m-%dT%H:%M:%S'),
+            "end": reserva.data_hora_fim.strftime('%Y-%m-%dT%H:%M:%S'),
+            "status": reserva.status_reserva,
+            "sala": reserva.sala.nome_sala,
+            "docente": reserva.email_doc,
+        }
+        for reserva in reservas
+    ]
     print(eventos)
 
     # Renderiza o template com os eventos
@@ -1038,11 +1022,15 @@ def agendaadmin_view(request):
     # Renderiza o template com os eventos
     return render(request, 'roomap/agendaadmin.html', {"eventos": eventos})
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from datetime import datetime
+from .models import Sala, Turno, Reservaadm
+
 def reservaadmin_view(request):
     if request.method == 'GET':
         sala_id = request.GET.get('sala_id')
         sala = get_object_or_404(Sala, id_sala=sala_id)
-
         turnos = Turno.objects.all()
 
         return render(request, 'roomap/reservaadmin.html', {'turnos': turnos, 'sala': sala})
@@ -1066,10 +1054,13 @@ def reservaadmin_view(request):
             return redirect(f'/reservaadmin/?sala_id={sala_id}')
 
         try:
-            # Converte as datas para timezone-aware
-            horario_inicio = make_aware(datetime.strptime(data_hora_inicio, "%Y-%m-%dT%H:%M"))
-            horario_fim = make_aware(datetime.strptime(data_hora_fim, "%Y-%m-%dT%H:%M"))
-        except ValueError:
+            # Convertendo os horários sem aplicar fuso horário
+            horario_inicio = datetime.strptime(data_hora_inicio, "%Y-%m-%dT%H:%M")
+            horario_fim = datetime.strptime(data_hora_fim, "%Y-%m-%dT%H:%M")
+            print(f"Horário início: {horario_inicio}")  # Depuração
+            print(f"Horário fim: {horario_fim}")  # Depuração
+        except ValueError as e:
+            print(f"Erro de conversão: {e}")
             messages.error(request, "Horário inválido.")
             return redirect(f'/reservaadmin/?sala_id={sala_id}')
 
@@ -1099,6 +1090,7 @@ def reservaadmin_view(request):
         except Exception as error:
             messages.error(request, f"Erro ao salvar a reserva: {error}")
             return redirect(f'/reservaadmin/?sala_id={sala_id}')
+
 
 def excluir_maquina(request, id_equip):
     equipamento = get_object_or_404(Equipamento, id_equip=id_equip)  # Altere para usar 'id_doc'

@@ -4,7 +4,7 @@ from .views import (
     loginadmin_view, login_view, cadastro_view,
     homedocente_view, homeadmin_view,
     reservaadmin_view, reservadocente_view, reserva_sala_view, reserva_sala_view_docente, deletar_reservas_expiradas,
-    reservas_do_dia_docente, reservas_do_dia_admin, excluir_reserva_docente,
+    reservas_do_dia_docente, reservas_do_dia_admin,
     inventariodocente_view, inventarioadmin_view, excluir_maquina,
     listafuncionarios_view, addmaquina_view, addfuncionario_view, excluir_docente,
     perfil_view, editarperfil_view,
@@ -64,5 +64,4 @@ urlpatterns = [
     # Contato
     path("send-help-email/", send_help_email, name="send_help_email"),
 
-    path('excluir-reserva/<int:id_reserva>/', excluir_reserva_docente, name='excluir_reserva_docente'),
 ]

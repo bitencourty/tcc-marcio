@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roomap</title>
     {% load static %}
-    <link rel="stylesheet"  type="text/css" href="{% static 'roomap/homedocente.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'roomap/homedocente.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script>
@@ -43,12 +43,11 @@
     </script>
 </head>
 <body>
-    <header class="header">
+    <header>
         <a href="{% url 'inicio' %}">
             <img src="{% static 'roomap/images/logoroomapheader.png' %}" alt="Roomap Logo" class="logo">
         </a>
-        <div id="menu-btn" onclick="toggleMenu()">☰</div>
-        <nav class="menu-bar">
+        <nav>
             <ul>
                 <li><a href="{% url 'homedocente' %}">Home</a></li>
                 <li><a href="{% url 'inventariodocente' %}">Inventário</a></li>
@@ -59,37 +58,8 @@
     </header>
 
     <main>
-        <div class="tabela">
-            <div id="infoTable" class="hidden">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Local</th>
-                            <th>Início</th>
-                            <th>Fim</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for reserva in reservas %}
-                            <tr>
-                                <td>{{ reserva.sala.nome_sala }}</td>
-                                <td>{{ reserva.data_hora_inicio|date:"d/m/Y H:i" }}</td>
-                                <td>{{ reserva.data_hora_fim|date:"d/m/Y H:i" }}</td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="3">Nenhuma reserva para hoje.</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
         <h1>Bem-vindo ao seu portal de <span class="highlight">reservas.</span><br> O espaço perfeito aguarda <span class="highlight">por você!</span></h1>
-        <p class="description">
-            Aqui, sua sala ideal está a apenas um mapa de distância.
-        </p>
+        <p class="description">Aqui, sua sala ideal está a apenas um mapa de distância.</p>
 
         <button class="btn-mapa">
             <span class="shadow"></span>
@@ -125,6 +95,7 @@
         </select>
     </div>
 
+
     <div class="no-results" style="display: none;">
         <img src="{% static 'roomap/images/image-removebg-preview.png' %}" alt="Não encontrado" class="no-results-icon">
         <h2>Ops! Nenhuma sala encontrada</h2>
@@ -150,31 +121,78 @@
     </div>
 
     <dialog id="modal">
-        <div class="wrapper">
-            <button onclick="modal.close()">Fechar</button>
-        </div>
+    <div class="wrapper">
+        <button class="close-button" onclick="modal.close()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
         <table>
             <thead>
-                <tr>
-                    <th>Reservas</th>
-                </tr>
+            <th colspan="3">RESERVAS DO DIA</th>
             </thead>
-            <tbody>
-                {% for reserva in reservas %}
-                    <tr>
-                        <td>{{ reserva.nome_sala }}</td>  <!-- Exibe o nome da sala -->
-                        <td>{{ reserva.data_hora_inicio|time }}</td>
-                        <td>{{ reserva.data_hora_fim|time }}</td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="4">Nenhuma reserva para hoje.</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </dialog>
+        <tbody>
+            {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.nome_sala }}</td>  <!-- Exibe o nome da sala -->
+                    <td>{{ reserva.data_hora_inicio|time }}</td>
+                    <td>{{ reserva.data_hora_fim|time }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma reserva para hoje.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</dialog>
 
+    <script>
+        const tabelas = [
+        {% for tabela in tabelas %}
+            {
+                nome_adm: "{{ tabela.nome_adm }}",
+                data_hora_inicio: "{{ tabela.data_hora_inicio }}",
+                data_hora_fim: "{{ tabela.data_hora_fim }}",
+                status_reserva: "{{ tabela.status_reserva }}",
+                id_sala: {{ tabela.id_sala }}
+            },
+        {% endfor %}
+        ];
+
+        // Função para exibir reservas filtradas pela sala
+        function exibirReservasPorSala(salaId) {
+            const tabelaBody = document.querySelector("#reservasTable tbody");
+            tabelaBody.innerHTML = ""; // Limpar a tabela antes de adicionar as novas linhas
+
+            // Filtrar as reservas que correspondem ao id_sala passado como parâmetro
+            const reservasFiltradas = tabelas.filter(tabela => tabela.id_sala == salaId);
+
+            // Verifica se há reservas para a sala
+            if (reservasFiltradas.length > 0) {
+                reservasFiltradas.forEach(reserva => {
+                    // Criar uma nova linha na tabela para cada reserva filtrada
+                    const novaLinha = document.createElement("tr");
+
+                    novaLinha.innerHTML = `
+                        <td>${reserva.nome_adm}</td>
+                        <td>${reserva.data_hora_inicio}</td>
+                        <td>${reserva.data_hora_fim}</td>
+                        <td>${reserva.status_reserva}</td>
+                    `;
+
+                    tabelaBody.appendChild(novaLinha); // Adiciona a linha na tabela
+                });
+            } else {
+                // Caso não haja reservas, exibe uma mensagem
+                const novaLinha = document.createElement("tr");
+                novaLinha.innerHTML = `<td colspan="4" style="text-align: center;">Nenhuma reserva encontrada.</td>`;
+                tabelaBody.appendChild(novaLinha);
+            }
+        }
+    </script>
 
     <script>
         // Script do carousel
@@ -201,99 +219,6 @@
                 }
             });
         }
-
-        const tabelas = [
-        {% for tabela in tabelas %}
-            {
-                email_doc: "{{ tabela.email_doc }}",
-                data_hora_inicio: "{{ tabela.data_hora_inicio }}",
-                data_hora_fim: "{{ tabela.data_hora_fim }}",
-                status_reserva: "{{ tabela.status_reserva }}",
-                id_sala: {{ tabela.id_sala }}
-            },
-        {% endfor %}
-        ];
-
-        // Função para exibir reservas filtradas pela sala
-        function exibirReservasPorSala(salaId) {
-            const tabelaBody = document.querySelector("#reservasTable tbody");
-            tabelaBody.innerHTML = ""; // Limpar a tabela antes de adicionar as novas linhas
-
-            // Filtrar as reservas que correspondem ao id_sala passado como parâmetro
-            const reservasFiltradas = tabelas.filter(tabela => tabela.id_sala == salaId);
-
-            // Verifica se há reservas para a sala
-            if (reservasFiltradas.length > 0) {
-                reservasFiltradas.forEach(reserva => {
-                    // Criar uma nova linha na tabela para cada reserva filtrada
-                    const novaLinha = document.createElement("tr");
-
-                    novaLinha.innerHTML = `
-                        <td>${reserva.email_doc}</td>
-                        <td>${reserva.data_hora_inicio}</td>
-                        <td>${reserva.data_hora_fim}</td>
-                        <td>${reserva.status_reserva}</td>
-                    `;
-
-                    tabelaBody.appendChild(novaLinha); // Adiciona a linha na tabela
-                });
-            } else {
-                // Caso não haja reservas, exibe uma mensagem
-                const novaLinha = document.createElement("tr");
-                novaLinha.innerHTML = `<td colspan="4" style="text-align: center;">Nenhuma reserva encontrada.</td>`;
-                tabelaBody.appendChild(novaLinha);
-            }
-        }
-
-        const tabelas = [
-        {% for tabela in tabelas %}
-            {
-                email_doc: "{{ tabela.email_doc }}",
-                data_hora_inicio: "{{ tabela.data_hora_inicio }}",
-                data_hora_fim: "{{ tabela.data_hora_fim }}",
-                status_reserva: "{{ tabela.status_reserva }}",
-                nome_sala: "{{ tabela.nome_sala }}"
-            },
-        {% endfor %}
-        ];
-
-        // Função para exibir reservas filtradas pela sala
-        function exibirReservasPorSala(nomeSala) {
-            const tabelaBody = document.querySelector("#reservasTable tbody");
-            tabelaBody.innerHTML = ""; // Limpar a tabela antes de adicionar as novas linhas
-
-            // Filtrar as reservas que correspondem ao nome_sala passado como parâmetro
-            const reservasFiltradas = tabelas.filter(tabela => tabela.nome_sala === nomeSala);
-
-            // Verifica se há reservas para a sala
-            if (reservasFiltradas.length > 0) {
-                reservasFiltradas.forEach(reserva => {
-                    // Criar uma nova linha na tabela para cada reserva filtrada
-                    const novaLinha = document.createElement("tr");
-
-                    novaLinha.innerHTML = `
-                        <td>${reserva.email_doc}</td>
-                        <td>${reserva.data_hora_inicio}</td>
-                        <td>${reserva.data_hora_fim}</td>
-                        <td>${reserva.status_reserva}</td>
-                    `;
-
-                    tabelaBody.appendChild(novaLinha); // Adiciona a linha na tabela
-                });
-            } else {
-                // Caso não haja reservas, exibe uma mensagem
-                const novaLinha = document.createElement("tr");
-                novaLinha.innerHTML = `<td colspan="4" style="text-align: center;">Nenhuma reserva encontrada.</td>`;
-                tabelaBody.appendChild(novaLinha);
-            }
-        }
-
-        function toggleMenu() {
-                const menuBar = document.querySelector('.menu-bar');
-                menuBar.classList.toggle('show');
-        }
-
-
     </script>
 </body>
 </html>

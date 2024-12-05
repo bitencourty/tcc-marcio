@@ -4,12 +4,30 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', 'sans-serif';
 }
 
 body {
+    font-family: Arial, sans-serif;
     background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 8.5px;
+    width: 100%;
+}
+
+.logo {
+    width: 250px;
+    margin-left: 25px;
 }
 
 header {
@@ -38,29 +56,26 @@ nav ul {
     gap: 11vw;
 }
 
-nav a {
-    text-decoration: none;
+nav ul li a {
     color: white;
+    text-decoration: none;
     font-size: 1.2vw;
-    transition: text-decoration 0.3s, color 0.3s;
 }
 
-nav a:hover {
+nav ul li a:hover {
     text-decoration: underline;
 }
 
 .search-container {
     position: relative;
     width:40%;
-    top: 10vh;
-    margin-bottom: 1vh;
+    top: 5vh;
     margin-left:7.5vh;
 }
 
 .search-container-block {
     position: relative;
-    top: 2.5vh;
-    margin-bottom: 5vh;
+    top: -1vh;
     width: 13.5%;
     margin-left: 82vw;
 }
@@ -108,7 +123,7 @@ nav a:hover {
     flex-wrap: wrap;
     justify-content: center;
     gap: 3vh;
-    top:40vh;
+    top:10vh;
 }
 
 .room-card {
@@ -403,14 +418,13 @@ main {
 
 /* Estilo do container do carousel */
 .carousel-container {
-    position: relative;
-    width: 100%;
-    height: 88vh;
+  width: 100%; /* Garante que o carrossel ocupe 100% da largura da tela */
+  overflow: hidden; /* Esconde as partes das imagens que saem da tela */
 }
 
 .carousel-wrapper {
-    width: 400%; /* 4 itens * 100% */
-    transition: transform 1s linear;
+    width: 400vw; /* 4 itens * 100% */
+    transition: transform 600ms linear;
     height: 100%;
 }
 
@@ -422,38 +436,20 @@ main {
 }
 
 .carousel-item {
-    position: relative;
-    width: 25%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+  width: 100vw; /* Garante que cada item do carrossel ocupe toda a largura da tela */
+  height: auto; /* Ajusta a altura proporcionalmente */
+  flex-shrink: 0; /* Impede que as imagens encolham */
 }
-  .item1 {
-      width: 230vh;
+  .item1, .item2, .item3, .item4 {
+      width: 100vw;
       height: 90vh;
-  }
-
-  .item2 {
-      width: 214.9vh;
-      height: 90vh;
-  }
-
-  .item3 {
-      width: 217.5vh;
-      height: 90vh;
-  }
-
-  .item4 {
-      width: 225vh;
-      height: 90vh;
+      object-fit: cover;
   }
 
 
 h1 {
     font-size: 8.5vh;
     padding: 1vh;
-    margin-left:-6vh;
     font-weight: 350;
     margin-top: 10vh;
     color: #ffffff;
@@ -468,7 +464,6 @@ h1 {
 .description {
     font-size: 3vh;
     padding: 1vh;
-    margin-left: -5vh;
     line-height: 2; /* Aumenta o espaçamento entre as linhas de texto */
     margin-bottom: 20px; /* Aumenta o espaçamento abaixo da descrição */
     color: #ffffff;
@@ -479,134 +474,96 @@ h1 {
     margin-left: 0vh;
 }
 
-.tabela {
-    position: relative;
-    margin-top:2vh;
-    margin-left: 2vh;
+/* Estilo para o dialog */
+/* Estilo para o dialog */
+/* Estilo para o dialog */
+#modal {
+    margin-top: 17vh;
+    margin-left: 110vh;
+    border-radius: 30px;
+    border-width: 1.5vh;
+    border-color: #e4e4e8;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    background-color: #ffffff;
+    width: 90vh; /* Aumentar largura da modal */
+    height: 80vh; /* Aumentar altura da modal */ /* Ajusta a altura automaticamente ao conteúdo */
+    overflow: hidden;  /* Garante que não apareça barra de rolagem */
 }
 
-#infoTable {
-    position: absolute;
-    top: 4vh;
-    left: 105vh;
-    border-radius: 4vh;
-    border: 1vh solid #e0e0e0;
-    background: white;
-    box-shadow: 0vh 1.5vh 1vh rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    display: none;
-    padding: 2vh; /* Adiciona um padding interno */
+/* Estilo para a tabela */
+#modal table {
+    width: 100%; /* Aumentar largura da tabela */
+    height: 90%; /* Aumentar altura da tabela */
+    border-collapse: collapse;
 }
 
-.fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+#modal th, #modal td {
+    text-align: center;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.fade-out {
-    animation: fadeOut 0.5s ease-in-out;
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-.hidden {
-    display: none;
-}
-
-.table-container {
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
-table {
-    width: 70vh;
-    max-width: 70vh;
-    margin: 0 auto;
-    border-collapse: collapse; /* Remove o espaçamento entre as células */
-}
-
-th {
+#modal th {
     background-color: #ff6b6b;
     color: #fff;
     font-weight: bold;
     padding: 6vh; /* Ajusta o padding do cabeçalho */
     border-radius: 4vh;
     text-align: center; /* Alinha o texto à esquerda */
-    font-size: 2.5vh;
+    font-size: 2.7vh;
 }
 
-tbody {
+#modal tbody{
     display: block; /* Permite o scroll apenas para o corpo da tabela */
     max-height: 60vh; /* Define uma altura máxima para o corpo */
-    overflow-y: auto; /* Permite scroll vertical no tbody */
+    overflow-y: auto;
 }
 
-tbody tr {
+#modal tbody tr {
     background-color: #ffffff;
     border-radius: 4vh; /* Bordas arredondadas para as linhas */
     box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.05);
     margin: 2vh 0; /* Espaçamento entre os quadrados */
     display: flex;
     justify-content: space-between; /* Alinha o conteúdo */
-    padding: 5vh; /* Padding interno */
+    padding: 2vh; /* Padding interno */
     border: 0.02vh solid rgb(200, 200, 200);
-    font-size: 2.5vh;
-}
-
-td {
+    font-size: 2.7vh;
+    font-weight:bold;
+    color: #1c1c1c;
     flex: 1; /* Faz cada célula ocupar o mesmo espaço */
-    padding: 15px; /* Ajusta o padding para maior altura */
+    padding: 10vh;
 }
 
-tbody tr:hover {
+#modal tbody tr:hover {
     background-color: #f1f1f1; /* Cor ao passar o mouse */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.sign {
-    width: 100%;
-    transition-duration: .3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
-  .sign svg {
-    width: 20px;
-  }
 
-  .sign svg path {
-    fill: white;
-    stroke: white; /* Adiciona o contorno */
-    stroke-width: 1; /* Ajusta a espessura do contorno */
-  }
-
-.text {
-    color: white;
-    font-size: 20px;
-    font-weight: lighter;
+/* Estilo para o botão de fechar */
+.close-button {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 1vh; /* Ajuste conforme necessário */
+    right: 1vh; /* Alinha à direita */
+    padding: 0.5vh 1vh;
+    font-size: 1.5vh;
+    cursor: pointer;
 }
 
-td{
-    padding: 8px;
-    text-align: center;
-    color: rgb(0, 0, 0);
+.close-button svg {
+    width: 24px;
+    height: 24px;
+    color: #333;
+    transition: color 0.3s ease;
 }
+
+.close-button:hover svg {
+    color: red;
+}
+
 
 .icon-trash{
     display: inline-block;
@@ -623,7 +580,7 @@ td{
     padding: 0;
     cursor: pointer;
     height: 58px;
-    margin-left: -4vh;
+    margin-left:6px;
     min-width: fit-content;
 }
 
@@ -661,7 +618,6 @@ td{
     color: hsl(345deg 100% 47%);
     text-decoration: none;
     height: 45px;
-    margin-left: -6vh;
     background: white;
     box-shadow: 0 4px 0 hsl(345deg 100% 32%);
     white-space: nowrap;
@@ -669,7 +625,7 @@ td{
     cursor: pointer;
     transform: translateY(-4px);
     transition: all 0.3s ease;
-    margin-left: 0;
+    margin-left: 3.6vh;
 }
 
 /* Hover states alinhados */
